@@ -1,8 +1,24 @@
+import { Container } from "@/shared";
+import { Header } from "@/widgets";
+
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start"></main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
+    <div className="flex flex-col relative">
+      <Header />
+
+      <main className="flex-1">
+        <section className="bg-[url('/bg-main.jpg')] bg-cover h-screen">
+          <Container>
+            <div className="pt-32">
+              <h1 className="text-indigo-100 text-4xl">Главный экран</h1>
+            </div>
+          </Container>
+        </section>
+      </main>
+
+      <footer>
+        <Container>fdsf</Container>
+      </footer>
     </div>
   );
 }
