@@ -43,4 +43,8 @@
     color: var(--foreground);
     font-family: "Inter", sans-serif;
   }
+
+  .hover-effect-icon:hover {
+    @apply hover:stroke-indigo-300 cursor-pointer transition-all duration-300;
+  }
 }

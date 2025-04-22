@@ -1,7 +1,7 @@
 import { CollectionSlider } from "@/features";
 import { getActiveCollection } from "@/features/collection-slider";
 import { Container } from "@/shared";
-import { Header } from "@/widgets";
+import { Footer, Header } from "@/widgets";
 
 export default async function Home() {
   const { activeCollection } = await getActiveCollection();
@@ -10,7 +10,7 @@ export default async function Home() {
     <div className="flex flex-col relative">
       <Header />
       <main className="flex-1">
-        <section className="bg-[url('/bg-main.jpg')] bg-cover bg-center h-[113vh]">
+        <section className="bg-[url('/bg-main.jpg')] bg-cover bg-center bg-no-repeat h-[112vh]">
           <Container>
             <div className="pt-20">
               <CollectionSlider collection={activeCollection[0]} />
@@ -18,9 +18,7 @@ export default async function Home() {
           </Container>
         </section>
       </main>
-      <footer>
-        <Container>fdsf</Container>
-      </footer>
+      <Footer />
     </div>
   );
 }
