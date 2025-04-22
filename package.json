@@ -19,6 +19,7 @@
   "dependencies": {
     "@clerk/nextjs": "^6.16.0",
     "@prisma/client": "^6.6.0",
+    "clsx": "^2.1.1",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.11.7",
     "lucide-react": "^0.503.0",
@@ -27,7 +28,8 @@
     "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "svix": "^1.64.1"
+    "svix": "^1.64.1",
+    "swiper": "^11.2.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

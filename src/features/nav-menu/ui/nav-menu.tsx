@@ -6,7 +6,7 @@ export const NavMenu = () => {
       <ul className="flex gap-8 text-lg font-normal leading-none">
         <li>
           <Link
-            className="hover:text-indigo-300 transition-colors duration-300"
+            className="hover:text-indigo-400 transition-colors duration-300"
             href="/catalog"
           >
             New
@@ -14,7 +14,7 @@ export const NavMenu = () => {
         </li>
         <li>
           <Link
-            className="hover:text-indigo-300 transition-colors duration-300"
+            className="hover:text-indigo-400 transition-colors duration-300"
             href="/catalog"
           >
             Men
@@ -22,7 +22,7 @@ export const NavMenu = () => {
         </li>
         <li>
           <Link
-            className="hover:text-indigo-300 transition-colors duration-300"
+            className="hover:text-indigo-400 transition-colors duration-300"
             href="/catalog"
           >
             Women
@@ -30,7 +30,7 @@ export const NavMenu = () => {
         </li>
         <li>
           <Link
-            className="hover:text-indigo-300 transition-colors duration-300"
+            className="hover:text-indigo-400 transition-colors duration-300"
             href="/catalog"
           >
             Kids
@@ -38,7 +38,7 @@ export const NavMenu = () => {
         </li>
         <li>
           <Link
-            className="hover:text-indigo-300 transition-colors duration-300"
+            className="hover:text-indigo-400 transition-colors duration-300"
             href="/catalog"
           >
             About us

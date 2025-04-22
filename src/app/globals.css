@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../../.flowbite-react/class-list.json";
-
 @layer base {
   @theme {
     --color-primary-50: #f0f5ff;
@@ -19,6 +18,17 @@
   :root {
     --background: #f0f5ff;
     --foreground: #f0f5ff;
+
+    --swiper-pagination-color: var(--color-primary-700);
+    --swiper-pagination-bullet-size: 12px;
+    --swiper-pagination-bullet-width: 12px;
+    --swiper-pagination-bullet-height: 12px;
+    --swiper-pagination-bullet-inactive-color: var(--color-primary-50);
+    --swiper-pagination-bullet-inactive-opacity: 1;
+    --swiper-pagination-bullet-opacity: 1;
+    --swiper-pagination-bullet-horizontal-gap: 6px;
+    --swiper-pagination-bullet-vertical-gap: 6px;
+    --swiper-pagination-bottom: 18px;
   }
 
   /* @media (prefers-color-scheme: dark) {
@@ -31,5 +41,6 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: "Inter", sans-serif;
   }
 }
