@@ -1,13 +1,13 @@
-import {
-  FooterAdvantages,
-  FooterCompany,
-  FooterShop,
-  FooterSocials,
-  FooterSupport,
-} from "@/entities";
 import { Container, FooterMenu } from "@/shared";
 import Image from "next/image";
 import Link from "next/link";
+import { FooterAdvantages } from "../model/footer-advantages";
+import {
+  FooterCompany,
+  FooterShop,
+  FooterSupport,
+} from "../model/footer-links";
+import { FooterSocials } from "../model/footer-socials";
 
 export const Footer = () => {
   return (
