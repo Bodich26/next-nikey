@@ -47,4 +47,16 @@
   .hover-effect-icon:hover {
     @apply hover:stroke-indigo-300 cursor-pointer transition-all duration-300;
   }
+
+  .cart-gradient {
+    background: linear-gradient(
+      to bottom,
+      rgba(229, 231, 235, 1) 0%,
+      rgba(229, 231, 235, 0.6) 30%,
+      rgba(229, 231, 235, 0.4) 40%,
+      rgba(229, 231, 235, 0.3) 60%,
+      rgba(229, 231, 235, 0.2) 80%,
+      rgba(229, 231, 235, 0.1) 100%
+    );
+  }
 }
