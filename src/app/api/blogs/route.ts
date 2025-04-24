@@ -5,7 +5,7 @@ import { prisma } from "@/../backend/prisma/prisma-client";
 
 export async function GET() {
   try {
-    const mainBlogs = await prisma.blog.findMany({
+    const blogs = await prisma.blog.findMany({
       where: {
         isFeatured: true,
       },
@@ -13,18 +13,18 @@ export async function GET() {
       orderBy: { createdAt: "asc" },
     });
 
-    if (!mainBlogs || mainBlogs.length === 0) {
+    if (!blogs || blogs.length === 0) {
       return NextResponse.json({
         error: "No blogs found",
         success: false,
-        item: [],
+        blogs: [],
       });
     }
 
-    return NextResponse.json({ mainBlogs, success: true });
+    return NextResponse.json({ blogs, success: true });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ error: "Error while getting Blogs", item: [] });
+    return NextResponse.json({ error: "Error while getting Blogs", blogs: [] });
   }
 }

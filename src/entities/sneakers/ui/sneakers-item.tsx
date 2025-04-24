@@ -53,8 +53,12 @@ export const SneakersItem = ({ sneaker }: SneakersProps) => {
             discount={firstVariant.discount}
             variant="main"
           />
-          <Button className="rounded-full cursor-pointer transition-colors duration-300 px-1 py-1 w-8 h-8">
-            <ArrowRightIcon width={24} height={24} />
+
+          <Button
+            className="rounded-full cursor-pointer transition-colors duration-300 px-1 py-1 w-20 h-7 gap-2"
+            href={`/catalog/${sneaker.slug}`}
+          >
+            View <ArrowRightIcon width={14} height={14} />
           </Button>
         </div>
       </div>

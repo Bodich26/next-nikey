@@ -17,13 +17,21 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    if (!sneakers || sneakers.length === 0) {
+      return NextResponse.json({
+        error: "No sneakers found",
+        success: false,
+        sneakers: [],
+      });
+    }
+
     return NextResponse.json({ sneakers, success: true });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Sneakers",
-      item: [],
+      sneakers: [],
     });
   }
 }

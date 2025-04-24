@@ -23,7 +23,7 @@ export async function GET() {
       return NextResponse.json({
         error: "No sneakers found",
         success: false,
-        sneaker: [],
+        popularSneakers: [],
       });
     }
 
@@ -32,7 +32,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Popular Sneakers",
-      item: [],
+      popularSneakers: [],
     });
   }
 }

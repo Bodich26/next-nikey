@@ -6,7 +6,7 @@ import { JSX } from "react";
 type Props = {
   title: string;
   as: keyof JSX.IntrinsicElements;
-  className: string;
+  className?: string;
   align: "left" | "center" | "right";
 };
 export const SectionTitles = ({ title, as: Tag, className, align }: Props) => {

@@ -11,7 +11,7 @@ import { FooterSocials } from "../model/footer-socials";
 
 export const Footer = () => {
   return (
-    <footer className="bg-[url('/bg-footer.jpg')] bg-cover bg-center bg-no-repeat">
+    <footer className="bg-[url('/bg-footer.jpg')] bg-cover bg-center bg-no-repeat mt-24">
       <Container>
         <div className="flex justify-between gap-2 mt-8 mb-20">
           {FooterAdvantages.map((item) => (
