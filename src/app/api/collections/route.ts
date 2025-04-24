@@ -4,7 +4,7 @@ import { prisma } from "@/../backend/prisma/prisma-client";
 
 export async function GET() {
   try {
-    const activeCollection = await prisma.collection.findMany({
+    const collection = await prisma.collection.findMany({
       where: {
         isActive: true,
       },
@@ -13,21 +13,21 @@ export async function GET() {
       },
     });
 
-    if (!activeCollection || activeCollection.length === 0) {
+    if (!collection || collection.length === 0) {
       return NextResponse.json({
         error: "No active collections",
         success: false,
-        item: [],
+        collection: [],
       });
     }
 
-    return NextResponse.json({ activeCollection, success: true });
+    return NextResponse.json({ collection, success: true });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Collection",
-      item: [],
+      collection: [],
     });
   }
 }

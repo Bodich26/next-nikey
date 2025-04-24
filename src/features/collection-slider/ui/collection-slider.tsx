@@ -8,14 +8,21 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/pagination";
 import { CollectionWithSneakers } from "../model/type-collection";
+import { ShowErrors } from "@/shared";
 
 type CollectionWithSneakersProps = {
   collection: CollectionWithSneakers;
+  showError?: string;
 };
 
 export const CollectionSlider = ({
   collection,
+  showError,
 }: CollectionWithSneakersProps) => {
+  if (!collection) {
+    return showError ? <ShowErrors error={showError} /> : null;
+  }
+
   return (
     <div className="flex justify-between items-center mt-20">
       <div className="max-w-[500px] mt-9">

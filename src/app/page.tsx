@@ -18,7 +18,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
-  const { activeCollection } = await getActiveCollection();
+  const { collectionData, error: collectionError } =
+    await getActiveCollection();
   const { popularSneakersData, error: popularSneakersError } =
     await getPopularSneakers();
   const { blogsData, error: blogError } = await getBlogs();
@@ -30,7 +31,10 @@ export default async function Home() {
         <section className="bg-[url('/bg-main.jpg')] bg-cover bg-center bg-no-repeat">
           <Container>
             <div className="pt-20 pb-[175px]">
-              <CollectionSlider collection={activeCollection[0]} />
+              <CollectionSlider
+                collection={collectionData[0]}
+                showError={collectionError}
+              />
             </div>
           </Container>
         </section>
