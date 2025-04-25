@@ -11,11 +11,11 @@ import { FooterSocials } from "../model/footer-socials";
 
 export const Footer = () => {
   return (
-    <footer className="bg-[url('/bg-footer.jpg')] bg-cover bg-center bg-no-repeat mt-24">
+    <footer className="bg-[url('/bg-footer.jpg')] bg-cover bg-center bg-no-repeat mt-24 margins-xs">
       <Container>
-        <div className="flex justify-between gap-2 mt-8 mb-20">
+        <div className="flex flex-wrap justify-center gap-4 mt-8 mb-20">
           {FooterAdvantages.map((item) => (
-            <div key={item.id} className="flex items-center gap-3">
+            <div key={item.id} className="flex items-center gap-3 w-[320px]">
               <item.icon width={32} height={32} />
               <div className="flex flex-col gap-1.5">
                 <h4 className="text-xl font-medium leading-none text-indigo-50">
@@ -28,8 +28,8 @@ export const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-between mb-16 gap-2">
-          <div className="w-[400px]">
+        <div className="flex justify-between sm:justify-between justify-center flex-wrap sm:flex-nowrap max-sm:flex-col-reverse mb-16 gap-2 max-sm:gap-12 items-center">
+          <div className="sm:w-[400px] text-center sm:text-left">
             <Link href="/" className="inline-block">
               <Image src="/logo.svg" alt="logo" width={136} height={0} />
             </Link>
@@ -38,18 +38,20 @@ export const Footer = () => {
               of your journey.
             </p>
             <Image
+              className="max-sm:mx-auto"
               src="/logo-nike.svg"
               width={183}
               height={66}
               alt="Logo-Nike"
             />
           </div>
-          <div className="flex items-start gap-[112px]">
+          <div className="flex items-start gap-12 justify-center sm:justify-start text-center max-sm:w-100 sm:text-left footer-menu-xs lg:min-w-[40%] lg:justify-between">
             <FooterMenu title="Shop" items={FooterShop} />
             <FooterMenu title="Support" items={FooterSupport} />
             <FooterMenu title="Company" items={FooterCompany} />
           </div>
         </div>
+
         <div className="flex justify-between items-center py-4">
           <p className="text-base font-light leading-normal">
             ©Copyright Bodich 2025

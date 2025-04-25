@@ -8,8 +8,8 @@ type Props = {
 export const Banner = ({ imgUrl, children }: Props) => {
   return (
     <section className="relative mt-24 bg-[url('/bg-banner.jpg')] bg-cover bg-center bg-no-repeat">
-      <div className="flex flex-col md:flex-row">
-        <div className="relative w-full md:w-[460px] lg:w-[660px] xl:w-[860px] min-h-[300px]">
+      <div className="flex">
+        <div className="relative w-[45%] max-md:hidden">
           <Image
             src={imgUrl}
             alt="Left Image"
@@ -21,7 +21,9 @@ export const Banner = ({ imgUrl, children }: Props) => {
         </div>
         <div className="flex-1">
           <Container>
-            <div className="p-9 max-w-[670px]">{children}</div>
+            <div className="padding-banner-xs p-9 max-w-[670px]">
+              {children}
+            </div>
           </Container>
         </div>
       </div>

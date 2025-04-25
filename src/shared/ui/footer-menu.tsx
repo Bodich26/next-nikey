@@ -10,7 +10,7 @@ export const FooterMenu = ({
   return (
     <div className="flex flex-col">
       <h4 className="text-xl font-bold text-indigo-50 mb-6">{title}</h4>
-      <ul className="flex flex-col gap-3">
+      <ul className="max-sm:items-center flex flex-col gap-3">
         {items.map((item, index) => (
           <li key={index} className="w-fit">
             <Link
