@@ -1,12 +1,24 @@
+"use client";
+import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
+
 import { Container } from "@/shared";
-import { NavMenu } from "@/features";
-import { Heart, Search, ShoppingCart, User } from "lucide-react";
+import { NavMenu, FavoritesDrawer } from "@/features";
+import { Search, User } from "lucide-react";
+import { useScrollHeader } from "../model/use-scroll-header";
+import { CartDrawer } from "@/features/cart";
 
 export const Header = () => {
+  const scrolled = useScrollHeader();
+
   return (
-    <header className="pt-9 absolute w-full z-10">
+    <header
+      className={clsx(
+        "pt-9 fixed w-full z-30 transition-colors duration-300",
+        scrolled && "bg-indigo-900 !pt-6 !pb-6"
+      )}
+    >
       <Container>
         <div className="flex items-center justify-between">
           <Link href="/">
@@ -16,8 +28,8 @@ export const Header = () => {
             <NavMenu />
             <div className="flex items-center gap-6 ">
               <Search />
-              <Heart />
-              <ShoppingCart />
+              <FavoritesDrawer />
+              <CartDrawer />
               <User />
             </div>
           </div>

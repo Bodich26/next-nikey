@@ -28,7 +28,7 @@ export const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-between sm:justify-between justify-center flex-wrap sm:flex-nowrap max-sm:flex-col-reverse mb-16 gap-2 max-sm:gap-12 items-center">
+        <div className="flex sm:justify-between justify-center flex-wrap sm:flex-nowrap max-sm:flex-col-reverse mb-16 gap-2 max-sm:gap-12 items-center">
           <div className="sm:w-[400px] text-center sm:text-left">
             <Link href="/" className="inline-block">
               <Image src="/logo.svg" alt="logo" width={136} height={0} />

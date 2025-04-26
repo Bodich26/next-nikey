@@ -8,12 +8,12 @@ type SneakersProps = {
   sneaker: SneakersWithVariants;
 };
 
-export const SneakersItem = ({ sneaker }: SneakersProps) => {
+export const SneakersFavoritesItem = ({ sneaker }: SneakersProps) => {
   const firstVariant = sneaker.variants[0];
   const hasDiscount = firstVariant?.discount && firstVariant.discount > 0;
 
   return (
-    <div className="rounded-lg cart-gradient relative h-full flex flex-col">
+    <div className="rounded-lg cart-gradient relative h-[330px] flex flex-col">
       <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2">
         <p className={clsx("opacity-0", hasDiscount && "opacity-100")}>
           <Badge color="indigo" size="sm" className="uppercase py-1 inline">

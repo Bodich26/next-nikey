@@ -1,6 +1,6 @@
 import {
   getPopularSneakers,
-  SneakersItem,
+  SneakersCatalogItem,
   SneakersWithVariants,
 } from "@/entities";
 import {
@@ -43,7 +43,7 @@ export default async function Home() {
             <SectionTitles title="Popular sneakers" as="h2" align="center" />
             <div className="grid gap-8 grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] mt-8">
               {popularSneakersData.map((item: SneakersWithVariants) => (
-                <SneakersItem key={item.id} sneaker={item} />
+                <SneakersCatalogItem key={item.id} sneaker={item} />
               ))}
             </div>
             {popularSneakersError && (

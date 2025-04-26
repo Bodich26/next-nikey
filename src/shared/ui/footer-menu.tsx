@@ -15,7 +15,7 @@ export const FooterMenu = ({
           <li key={index} className="w-fit">
             <Link
               href="#"
-              className=" text-base font-light leading-normal text-indigo-50 hover:text-indigo-300 transition-colors duration-300"
+              className=" text-base font-light leading-normal text-indigo-50 hover:text-indigo-400 transition-colors duration-300"
             >
               {item}
             </Link>
