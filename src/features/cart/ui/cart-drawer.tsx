@@ -22,7 +22,7 @@ const obj = [
           "https://ik.imagekit.io/pfbn9k04m/AirMaxPlusDrift-1.png?updatedAt=1744876872994",
         quantity: 1,
         price: 185,
-        discount: 0,
+        discount: 10,
         sneakerId: "cm9l2ovo90003tg98hpmrqxwl",
         createdAt: "2025-04-17T08:04:44.265Z",
         updatedAt: "2025-04-23T11:11:55.301Z",

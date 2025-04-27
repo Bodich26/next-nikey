@@ -3,7 +3,11 @@ import { Button, Drawer, DrawerHeader, DrawerItems } from "flowbite-react";
 import React from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useDrawerState } from "../model/use-drawer-state";
-import { SneakersWithVariants, SneakersCatalogItem } from "@/entities";
+import {
+  SneakersWithVariants,
+  SneakersCatalogItem,
+  SneakersCartItem,
+} from "@/entities";
 
 type Props =
   | {
@@ -29,7 +33,7 @@ export const StoreDrawer = ({ sneakers, type }: Props) => {
       <SneakersCatalogItem sneaker={item} key={item.id} />
     )),
     cart: sneakers.map((item) => (
-      <SneakersCatalogItem sneaker={item} key={item.id} />
+      <SneakersCartItem sneaker={item} key={item.id} />
     )),
   };
 
@@ -75,8 +79,13 @@ export const StoreDrawer = ({ sneakers, type }: Props) => {
           <div className="flex flex-col gap-4">{typeRenders[type]}</div>
         </DrawerItems>
         <div className="mt-4">
+          {type === "cart" && (
+            <strong className="text-base font-bold text-indigo-900 leading-none">
+              Totals: $214.32
+            </strong>
+          )}
           <Button
-            className="uppercase w-full cursor-pointer transition-colors duration-300 h-[36px] "
+            className="mt-2 uppercase w-full cursor-pointer transition-colors duration-300 h-[36px] "
             size="lg"
             onClick={handleClose}
           >

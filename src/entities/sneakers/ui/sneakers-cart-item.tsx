@@ -1,4 +1,4 @@
-import { ArrowRightIcon, Badge, Button } from "flowbite-react";
+import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
 import Image from "next/image";
 import { SneakersWithVariants } from "../model/type-sneakers";
 import { SneakersPrice } from "./sneakers-price";
@@ -15,14 +15,17 @@ export const SneakersCartItem = ({ sneaker }: SneakersProps) => {
   return (
     <div className="rounded-lg cart-gradient relative h-[330px] flex flex-col">
       <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2">
-        <p className={clsx("opacity-0", hasDiscount && "opacity-100")}>
-          <Badge color="indigo" size="sm" className="uppercase py-1 inline">
-            Sale
-          </Badge>
-          <b className="font-bold text-base leading-none text-indigo-600 ml-2">
-            {`${firstVariant.discount}%`}
-          </b>
-        </p>
+        <div className="flex items-center gap-2">
+          <CloseIcon className="cursor-pointer z-10" />
+          <p className={clsx("opacity-0", hasDiscount && "opacity-100")}>
+            <Badge color="indigo" size="sm" className="uppercase py-1 inline">
+              Sale
+            </Badge>
+            <b className="font-bold text-base leading-none text-indigo-600 ml-2">
+              {`${firstVariant.discount}%`}
+            </b>
+          </p>
+        </div>
         <span className="font-bold text-base leading-none text-indigo-600 lowercase">
           {sneaker.gender}
         </span>
@@ -44,9 +47,23 @@ export const SneakersCartItem = ({ sneaker }: SneakersProps) => {
           NIKE
           <Image src="/nike-brand.svg" width={32} height={11} alt="nike" />
         </span>
-        <h4 className="font-bold text-xl leading-none capitalize text-indigo-900 mt-3">
+        <h4 className="font-bold text-xl leading-none capitalize text-indigo-900 mt-3 mb-2">
           {sneaker.model}
         </h4>
+        <div className=" text-base font-light leading-normal text-indigo-900">
+          <ul>
+            <li className="flex items-center gap-1">
+              <strong>Color:</strong> <span>AirMax90Blue</span>
+            </li>
+            <li className="flex items-center gap-1">
+              <strong>Size:</strong> <span>43</span>
+            </li>
+            <li className="flex items-center gap-1">
+              <strong>Quantity:</strong> <span>1</span>
+            </li>
+          </ul>
+        </div>
+
         <div className="flex justify-between items-center mt-2.5">
           <SneakersPrice
             price={firstVariant.price}
