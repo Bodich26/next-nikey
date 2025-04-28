@@ -1,64 +1,85 @@
-import { StoreDrawer } from "@/widgets";
+import { Heart } from "lucide-react";
 
-const obj = [
-  {
-    id: "cm9l2ovo90003tg98hpmrqxwl",
-    brand: "Nike",
-    model: "Air Max Plus Drift",
-    gender: "MEN",
-    ageCategory: "ADULT",
-    views: 0,
-    isAvailable: true,
-    slug: "nike-air-max-plus-drift",
-    collectionId: null,
-    createdAt: "2025-04-17T08:02:40.857Z",
-    updatedAt: "2025-04-17T08:01:42.461Z",
-    collectionImage: null,
-    variants: [
-      {
-        id: "cm9l2riw80004tg989f2491vo",
-        color: "AirMaxPlusDriftWhite",
-        mainImage:
-          "https://ik.imagekit.io/pfbn9k04m/AirMaxPlusDrift-1.png?updatedAt=1744876872994",
-        quantity: 1,
-        price: 185,
-        discount: 0,
-        sneakerId: "cm9l2ovo90003tg98hpmrqxwl",
-        createdAt: "2025-04-17T08:04:44.265Z",
-        updatedAt: "2025-04-23T11:11:55.301Z",
-      },
-    ],
-  },
-  {
-    id: "cm9l2ovo90003tg98hpmrqxwl",
-    brand: "Nike",
-    model: "Air Max Plus Drift",
-    gender: "MEN",
-    ageCategory: "ADULT",
-    views: 0,
-    isAvailable: true,
-    slug: "nike-air-max-plus-drift",
-    collectionId: null,
-    createdAt: "2025-04-17T08:02:40.857Z",
-    updatedAt: "2025-04-17T08:01:42.461Z",
-    collectionImage: null,
-    variants: [
-      {
-        id: "cm9l2riw80004tg989f2491vo",
-        color: "AirMaxPlusDriftWhite",
-        mainImage:
-          "https://ik.imagekit.io/pfbn9k04m/AirMaxPlusDrift-1.png?updatedAt=1744876872994",
-        quantity: 1,
-        price: 185,
-        discount: 0,
-        sneakerId: "cm9l2ovo90003tg98hpmrqxwl",
-        createdAt: "2025-04-17T08:04:44.265Z",
-        updatedAt: "2025-04-23T11:11:55.301Z",
-      },
-    ],
-  },
-];
+import { useAtom } from "jotai";
+import {
+  Button,
+  Drawer,
+  DrawerHeader,
+  DrawerItems,
+  Spinner,
+} from "flowbite-react";
+import { ShowNotify, useDrawerState } from "@/shared";
+import { loadableUserFavoritesAtom } from "../api/favorites-api-atom";
+import { SneakersFavoritesItem } from "@/entities";
 
 export const FavoritesDrawer = () => {
-  return <StoreDrawer type="favorites" sneakers={obj} />;
+  const [userFavorites] = useAtom(loadableUserFavoritesAtom);
+  const { isOpen, setIsOpen } = useDrawerState();
+  const handleClose = () => setIsOpen(false);
+
+  return (
+    <>
+      <Heart
+        onClick={() => setIsOpen(true)}
+        cursor="Pointer"
+        className="hover-effect-icon"
+      />
+      <Drawer
+        open={isOpen}
+        onClose={handleClose}
+        position="right"
+        theme={{
+          root: {
+            backdrop: "opacity-70",
+            base: "max-w-[290px] !bg-indigo-50 text-indigo-500 !overflow-hidden justify-between flex flex-col",
+          },
+          header: {
+            inner: {
+              titleText: "!text-indigo-500",
+              titleIcon: "hidden",
+            },
+          },
+        }}
+      >
+        <DrawerHeader title={"Favorites"} />
+        <DrawerItems className="!overflow-y-auto basis-[100%]">
+          <div className="flex flex-col gap-4">
+            {userFavorites.state === "loading" && (
+              <div className="flex items-center gap-2 flex-row text-center font-medium text-lg text-indigo-500 absolute top-[40%] right-[50%] translate-x-[50%]">
+                <Spinner
+                  color="default"
+                  aria-label="Indigo spinner example"
+                  size="md"
+                />
+                <p className="text-center text-indigo-400">Loading...</p>
+              </div>
+            )}
+
+            {userFavorites.state === "hasError" && (
+              <ShowNotify notify="Failed to load favorites" />
+            )}
+
+            {userFavorites.state === "hasData" &&
+              userFavorites.data &&
+              (userFavorites.data.favoriteItems.length > 0 ? (
+                userFavorites.data.favoriteItems.map((item, index) => (
+                  <SneakersFavoritesItem sneaker={item.sneaker} key={index} />
+                ))
+              ) : (
+                <ShowNotify notify="Your favorites is empty" />
+              ))}
+          </div>
+        </DrawerItems>
+        <div className="mt-4">
+          <Button
+            className="mt-2 uppercase w-full cursor-pointer transition-colors duration-300 h-[36px] "
+            size="lg"
+            onClick={handleClose}
+          >
+            Close Favorites
+          </Button>
+        </div>
+      </Drawer>
+    </>
+  );
 };

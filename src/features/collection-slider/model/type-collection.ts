@@ -4,4 +4,10 @@ type CollectionWithSneakers = Collection & {
   sneakers: Sneaker[];
 };
 
-export type { CollectionWithSneakers };
+type CollectionResponse = {
+  collectionData: CollectionWithSneakers[];
+  success: boolean;
+  error?: string;
+};
+
+export type { CollectionWithSneakers, CollectionResponse };

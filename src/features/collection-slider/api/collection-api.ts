@@ -1,12 +1,6 @@
-import { CollectionWithSneakers } from "../model/type-collection";
+import { CollectionResponse } from "../model/type-collection";
 
-type GetCollectionResult = {
-  collectionData: CollectionWithSneakers[];
-  success: boolean;
-  error?: string;
-};
-
-export async function getActiveCollection(): Promise<GetCollectionResult> {
+export async function getActiveCollection(): Promise<CollectionResponse> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/collections`,

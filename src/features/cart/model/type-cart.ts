@@ -1,19 +1,29 @@
 import {
-  Cart,
   CartOnSneakers,
   Sneaker,
   ColorVariant,
   ColorVariantSize,
 } from "@prisma/client";
 
-type CartSneakers = Cart & {
-  cartItems: (CartOnSneakers & {
-    sneaker: Sneaker & {
-      variants: (ColorVariant & {
-        sizes: ColorVariantSize[];
+type CartItem = CartOnSneakers & {
+  sneaker: Sneaker & {
+    variants: (ColorVariant & {
+      images: {
+        url: string;
+      }[];
+      sizes: (ColorVariantSize & {
+        size: {
+          value: number;
+        };
       })[];
-    };
-  })[];
+    })[];
+  };
 };
 
-export type { CartSneakers };
+type CartResponse = {
+  cartItems: CartItem[];
+  totalAmount: number;
+  success: boolean;
+};
+
+export type { CartItem, CartResponse };

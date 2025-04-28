@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     const token = req.cookies.get("cartToken")?.value;
 
     if (!clerkUserId && !token) {
-      return NextResponse.json({ item: [], success: true });
+      return NextResponse.json({ favoriteItems: [], success: true });
     }
 
     const user = await prisma.user.findUnique({
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ item: [], success: true });
+      return NextResponse.json({ favoriteItems: [], success: true });
     }
 
     const userFavorites = await prisma.favorites.findFirst({
@@ -29,7 +29,15 @@ export async function GET(req: NextRequest) {
       include: {
         favoriteItems: {
           include: {
-            sneaker: true,
+            sneaker: {
+              include: {
+                variants: {
+                  include: {
+                    images: true,
+                  },
+                },
+              },
+            },
           },
           orderBy: {
             createdAt: "desc",
@@ -39,11 +47,11 @@ export async function GET(req: NextRequest) {
     });
 
     if (!userFavorites) {
-      return NextResponse.json({ item: [], success: true });
+      return NextResponse.json({ favoriteItems: [], success: true });
     }
 
     return NextResponse.json({
-      item: userFavorites.favoriteItems,
+      favoriteItems: userFavorites.favoriteItems,
       success: true,
     });
 
@@ -51,7 +59,7 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Favorites",
-      item: [],
+      favoriteItems: [],
     });
   }
 }

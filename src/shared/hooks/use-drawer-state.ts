@@ -6,7 +6,7 @@ export const useDrawerState = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useWindowLockScroll(isOpen);
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => setIsOpen(true);
 
   return {
     isOpen,

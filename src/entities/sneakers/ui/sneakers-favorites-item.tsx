@@ -1,20 +1,17 @@
-import { ArrowRightIcon, Badge, Button } from "flowbite-react";
+import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
 import Image from "next/image";
-import { SneakersWithVariants } from "../model/type-sneakers";
 import { SneakersPrice } from "./sneakers-price";
 import clsx from "clsx";
+import { SneakerInFavorites } from "../model/type-sneakers";
 
-type SneakersProps = {
-  sneaker: SneakersWithVariants;
-};
-
-export const SneakersFavoritesItem = ({ sneaker }: SneakersProps) => {
+export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
   const firstVariant = sneaker.variants[0];
   const hasDiscount = firstVariant?.discount && firstVariant.discount > 0;
 
   return (
-    <div className="rounded-lg cart-gradient relative h-[330px] flex flex-col">
-      <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2">
+    <div className="rounded-lg cart-gradient relative  flex flex-col">
+      <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2 z-10">
+        <CloseIcon className="cursor-pointer z-10" />
         <p className={clsx("opacity-0", hasDiscount && "opacity-100")}>
           <Badge color="indigo" size="sm" className="uppercase py-1 inline">
             Sale
@@ -23,12 +20,9 @@ export const SneakersFavoritesItem = ({ sneaker }: SneakersProps) => {
             {`${firstVariant.discount}%`}
           </b>
         </p>
-        <span className="font-bold text-base leading-none text-indigo-600 lowercase">
-          {sneaker.gender}
-        </span>
       </div>
 
-      <div className="relative w-full h-[200px] overflow-hidden rounded-lg">
+      <div className="relative w-full h-[120px] overflow-hidden rounded-lg">
         <Image
           src={
             firstVariant.mainImage ??

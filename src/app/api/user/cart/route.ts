@@ -11,7 +11,11 @@ export async function GET(req: NextRequest) {
     const token = req.cookies.get("cartToken")?.value;
 
     if (!clerkUserId && !token) {
-      return NextResponse.json({ item: [], totalAmount: 0, success: true });
+      return NextResponse.json({
+        cartItems: [],
+        totalAmount: 0,
+        success: true,
+      });
     }
 
     const user = await prisma.user.findUnique({
@@ -19,7 +23,11 @@ export async function GET(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ item: [], totalAmount: 0, success: true });
+      return NextResponse.json({
+        cartItems: [],
+        totalAmount: 0,
+        success: true,
+      });
     }
 
     const userCart = await prisma.cart.findFirst({
@@ -48,12 +56,16 @@ export async function GET(req: NextRequest) {
     });
 
     if (!userCart) {
-      return NextResponse.json({ item: [], totalAmount: 0, success: true });
+      return NextResponse.json({
+        cartItems: [],
+        totalAmount: 0,
+        success: true,
+      });
     }
 
     return NextResponse.json({
-      item: userCart.cartItems,
-      totalAmount: userCart.totalAmount,
+      cartItems: userCart.cartItems,
+      totalAmount: 0,
       success: true,
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

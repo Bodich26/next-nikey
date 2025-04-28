@@ -1,12 +1,6 @@
-import { SneakersWithVariants } from "../model/type-sneakers";
+import { PopularSneakersResponse } from "../model/type-sneakers";
 
-type GetPopularSneakersResult = {
-  popularSneakersData: SneakersWithVariants[];
-  success: boolean;
-  error?: string;
-};
-
-export async function getPopularSneakers(): Promise<GetPopularSneakersResult> {
+export async function getPopularSneakers(): Promise<PopularSneakersResponse> {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/sneakers/popular`,

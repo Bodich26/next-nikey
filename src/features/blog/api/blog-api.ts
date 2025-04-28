@@ -1,12 +1,6 @@
-import { Blog } from "@prisma/client";
+import { BlogsResponse } from "../model/type-blog";
 
-type GetBlogsResult = {
-  blogsData: Blog[];
-  success: boolean;
-  error?: string;
-};
-
-export async function getBlogs(): Promise<GetBlogsResult> {
+export async function getBlogs(): Promise<BlogsResponse> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
       cache: "no-cache",
