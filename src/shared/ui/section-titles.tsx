@@ -1,15 +1,22 @@
 "use client";
 
 import clsx from "clsx";
-import { JSX } from "react";
+import { ReactNode, JSX } from "react";
 
 type Props = {
-  title: string;
+  title: string | ReactNode;
+  types?: string;
   as: keyof JSX.IntrinsicElements;
   className?: string;
   align: "left" | "center" | "right";
 };
-export const SectionTitles = ({ title, as: Tag, className, align }: Props) => {
+export const SectionTitles = ({
+  title,
+  as: Tag,
+  className,
+  align,
+  types,
+}: Props) => {
   const justifyClass =
     align === "left"
       ? "justify-center sm:justify-start"
@@ -27,7 +34,7 @@ export const SectionTitles = ({ title, as: Tag, className, align }: Props) => {
           className
         )}
       >
-        {title}
+        {title + " " + types!}
       </Tag>
 
       {(align === "center" || align === "left") && (

@@ -6,3 +6,6 @@ export { PriceFormat } from "./price-format";
 export { Banner } from "./banner";
 export { ShowErrors } from "./show-errors";
 export { ShowNotify } from "./show-notify";
+export { GenderCorrect } from "./gender-correct";
+export { SneakersPrice } from "./sneakers-price";
+export { StarsRating } from "./stars-rating";

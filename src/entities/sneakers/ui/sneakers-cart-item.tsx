@@ -1,8 +1,9 @@
 import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
 import Image from "next/image";
-import { SneakersPrice } from "./sneakers-price";
+
 import clsx from "clsx";
 import { SneakerInCart } from "../model/type-sneakers";
+import { SneakersPrice } from "@/shared";
 
 export const SneakersCartItem = ({ sneaker }: SneakerInCart) => {
   return (

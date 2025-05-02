@@ -1,4 +1,4 @@
-export const calcDiscountPrice = (price: number, discount?: number) => {
+export const useCalcDiscountPrice = (price: number, discount?: number) => {
   if (!discount || discount <= 0) {
     return price;
   }

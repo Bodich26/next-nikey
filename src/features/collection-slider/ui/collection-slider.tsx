@@ -45,7 +45,7 @@ export const CollectionSlider = ({
         </div>
       </div>
       <Swiper
-        pagination={true}
+        pagination={{ clickable: true }}
         modules={[Pagination]}
         className="relative w-full overflow-hidden [&_.swiper-pagination]:bottom-5"
       >

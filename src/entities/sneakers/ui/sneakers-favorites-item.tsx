@@ -1,8 +1,9 @@
 import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
 import Image from "next/image";
-import { SneakersPrice } from "./sneakers-price";
+
 import clsx from "clsx";
 import { SneakerInFavorites } from "../model/type-sneakers";
+import { SneakersPrice } from "@/shared";
 
 export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
   const firstVariant = sneaker.variants[0];

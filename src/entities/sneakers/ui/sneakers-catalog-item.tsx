@@ -1,8 +1,9 @@
 import { ArrowRightIcon, Badge, Button } from "flowbite-react";
 import Image from "next/image";
 import { SneakersWithVariants } from "../model/type-sneakers";
-import { SneakersPrice } from "./sneakers-price";
+
 import clsx from "clsx";
+import { SneakersPrice } from "@/shared";
 
 type SneakersProps = {
   sneaker: SneakersWithVariants;
@@ -36,7 +37,7 @@ export const SneakersCatalogItem = ({ sneaker }: SneakersProps) => {
           }
           alt={sneaker.model}
           fill
-          className="object-cover"
+          className=" object-cover"
         />
       </div>
       <div className="p-3 flex-grow flex flex-col justify-between">
