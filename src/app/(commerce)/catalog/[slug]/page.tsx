@@ -1,4 +1,9 @@
-import { getActiveCollection, TopBannersSlider } from "@/features";
+import {
+  getActiveCollection,
+  SelectSize,
+  SneakerGallery,
+  TopBannersSlider,
+} from "@/features";
 import { ReviewSlider } from "@/features/review";
 import {
   Container,
@@ -38,46 +43,17 @@ export default async function Sneaker() {
           />
 
           <div className="flex flex-wrap md:flex-nowrap justify-between items-start gap-8 mt-8">
-            <div className="flex flex-col gap-8 w-[58%] min-w-0 max-md:w-[100%]">
-              {/* Блок с большим изображением */}
-              <div className="relative w-full aspect-[780/563] rounded-lg">
-                <Image
-                  className="rounded-lg object-cover"
-                  fill
-                  src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c8f4e62a-c5e3-4134-bda9-e188023e0e47/AIR+MAX+PLUS+DRIFT.png"
-                  alt="Nike Air 90"
-                />
-                <Image
-                  src="/logo-nike.svg"
-                  alt="Nike Logo"
-                  width={70}
-                  height={25}
-                  className="absolute left-4 top-4 invert"
-                  priority
-                />
-              </div>
+            <SneakerGallery
+              images={[
+                "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/acd29410-53f1-4c85-aea0-3465092e20c2/NIKE+AIR+MAX+PLUS.png",
+                "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8cf1a0ea-a07a-4875-9e69-daab353b88ec/NIKE+AIR+MAX+PLUS.png",
+                "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1258a0ef-18b6-409f-8872-0f67e97a7f08/NIKE+AIR+MAX+PLUS.png",
+                "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/40010484-da05-4456-9924-7538840d6e35/NIKE+AIR+MAX+PLUS.png",
+                "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/be2c34fc-0ac0-40d9-b45a-3427200ee2ba/NIKE+AIR+MAX+PLUS.png",
+              ]}
+            />
 
-              {/* Галерея */}
-              <div className="max-md:overflow-x-auto">
-                <div className="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(137px,_1fr))] max-md:flex max-md:flex-nowrap max-md:min-w-max">
-                  {[...Array(5)].map((_, i) => (
-                    <Button
-                      key={i}
-                      className="relative max-md:w-[137px] h-[153px] overflow-hidden rounded-lg cursor-pointer"
-                    >
-                      <Image
-                        className="rounded-lg object-cover"
-                        fill
-                        src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ef8c266c-5edb-4161-bd67-161c72ae9547/AIR+MAX+PLUS+DRIFT.png"
-                        alt="Nike Air 90"
-                      />
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="w-[42%] min-w-0 rounded-lg border border-indigo-300 p-4 max-md:w-[100%] flex justify-between flex-col gap-8">
+            <div className="w-[42%] min-w-0 rounded-lg border border-indigo-300 p-4 max-md:w-[100%] flex justify-between flex-col max-sm:gap-5 gap-8">
               <div className="flex justify-between items-center text-xl font-medium text-indigo-900 ">
                 <Link href="/" className="flex items-center gap-3">
                   <MoveLeft /> back
@@ -87,8 +63,10 @@ export default async function Sneaker() {
                 </span>
               </div>
               <div className="flex justify-between items-start text-indigo-900 capitalize gap-1 flex-col">
-                <h3 className="text-5xl font-bold">Air Max Plus Drift</h3>
-                <p className="text-xl font-medium">Men’s Shoes</p>
+                <h3 className="max-sm:text-4xl text-5xl font-bold">
+                  Air Max Plus Drift
+                </h3>
+                <p className=" text-xl font-medium">Men’s Shoes</p>
 
                 <div className="mt-1">
                   <StarsRating rating={4} />
@@ -119,23 +97,9 @@ export default async function Sneaker() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-start text-indigo-900 capitalize gap-2 flex-col">
-                <p className="text-xl font-bold">Sizes</p>
-                <div className="flex flex-wrap gap-2">
-                  {[...Array(10)].map((_, i) => (
-                    <Button
-                      key={i}
-                      outline
-                      className="uppercase w-[45px] h-[45px] cursor-pointer transition-colors duration-300 gap-2  border-1 border-indigo-700 text-indigo-700"
-                      size="lg"
-                    >
-                      {i + 1}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+              <SelectSize sizes={[36, 37, 38, 39, 40, 41, 42, 43, 44, 45]} />
 
-              <div className="w-full flex justify-between gap-8 items-center">
+              <div className="w-full flex justify-between max-sm:gap-4 gap-8 items-center">
                 <Button
                   className="uppercase w-full cursor-pointer transition-colors duration-300 gap-2"
                   size="lg"

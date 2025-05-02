@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import clsx from "clsx";
 import { SneakerInFavorites } from "../model/type-sneakers";
-import { SneakersPrice } from "@/shared";
+import { SneakersPrice, useGenderCapitalized } from "@/shared";
 
 export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
   const firstVariant = sneaker.variants[0];
@@ -42,6 +42,9 @@ export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
         <h4 className="font-bold text-xl leading-none capitalize text-indigo-900 mt-3">
           {sneaker.model}
         </h4>
+        <strong className="text-base font-light leading-normal text-indigo-900 mt-1">
+          Gender: <span>{useGenderCapitalized(sneaker.gender)}</span>
+        </strong>
         <div className="flex justify-between items-center mt-2.5">
           <SneakersPrice
             price={firstVariant.price}

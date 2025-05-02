@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import clsx from "clsx";
 import { SneakerInCart } from "../model/type-sneakers";
-import { SneakersPrice } from "@/shared";
+import { SneakersPrice, useGenderCapitalized } from "@/shared";
 
 export const SneakersCartItem = ({ sneaker }: SneakerInCart) => {
   return (
@@ -18,7 +18,7 @@ export const SneakersCartItem = ({ sneaker }: SneakerInCart) => {
         </h4>
         <div className="flex justify-between items-center">
           <strong className="text-base font-light leading-normal text-indigo-900">
-            Gender: <span>{sneaker.gender}</span>
+            Gender: <span>{useGenderCapitalized(sneaker.gender)}</span>
           </strong>
           <Button
             className="!bg-transparent rounded-full text-indigo-900 cursor-pointer transition-colors duration-300 px-1 py-1 w-20 h-6 gap-2"

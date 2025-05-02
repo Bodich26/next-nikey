@@ -71,6 +71,10 @@
     justify-content: space-between;
   }
 
+  .swiper-button-prev,
+  .swiper-button-next {
+    z-index: 20 !important;
+  }
   .slider-arrow-review-next:after,
   .slider-arrow-review-prev:after {
     font-size: 31px !important;
