@@ -9,18 +9,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { ShowErrors } from "@/shared";
-import { CollectionWithSneakers } from "@/features/collection-slider/model/type-collection";
+import { ProductSlider } from "@prisma/client";
 
-type CollectionWithSneakersProps = {
-  collection: CollectionWithSneakers;
+type SneakerSlideProps = {
+  slide: ProductSlider[];
   showError?: string;
 };
 
-export const TopBannersSlider = ({
-  collection,
-  showError,
-}: CollectionWithSneakersProps) => {
-  if (!collection) {
+export const SliderBanners = ({ slide, showError }: SneakerSlideProps) => {
+  if (!slide || slide.length === 0) {
     return showError ? <ShowErrors error={showError} /> : null;
   }
 
@@ -36,18 +33,16 @@ export const TopBannersSlider = ({
   sm:[&_.swiper-pagination-bullets]:!left-[1%] 
   sm:[&_.swiper-pagination-bullets]:right-0 [&_.swiper-pagination]:!bottom-[0px]"
       >
-        {collection?.sneakers?.map((item, index) => (
-          <SwiperSlide key={index} className="">
+        {slide.map((item, index) => (
+          <SwiperSlide key={index}>
             <div className="lg:flex-row flex gap-9 flex-col-reverse justify-between items-start lg:p-4 sm:mb-6 lg:mb-0">
               <div className="flex flex-col gap-9 justify-between lg:max-w-[648px] md:max-w-full text-center sm:text-start">
                 <div>
                   <h3 className="lg:mt-8 text-4xl sm:text-5xl md:text-6xl font-bold leading-none uppercase text-indigo-50 text-center sm:text-start">
-                    Push Limits, Chase Every Horizon
+                    {item.title}
                   </h3>
                   <p className=" text-xl font-light leading-normal text-indigo-50 mt-5">
-                    With Tuned Air cushioning and a dynamic silhouette, these
-                    sneakers are built for those who refuse to settle. Step
-                    beyond your comfort zone — and look good doing it.
+                    {item.text}
                   </p>
                 </div>
               </div>
@@ -55,10 +50,8 @@ export const TopBannersSlider = ({
                 <Image
                   className="rounded-lg object-cover"
                   fill
-                  src={
-                    "https://ik.imagekit.io/pfbn9k04m/product-slide6.jpg?updatedAt=1745060629613"
-                  }
-                  alt={item.brand}
+                  src={item.image}
+                  alt={item.title}
                 />
                 <div className="absolute rounded-lg inset-0 bg-[#362F78]/50 z-10" />
               </div>

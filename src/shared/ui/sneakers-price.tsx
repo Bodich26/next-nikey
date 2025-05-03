@@ -51,7 +51,9 @@ export const SneakersPrice = ({
       <p className="inline-flex items-center gap-3">
         {priceElement}
         {oldPriceElement}
-        <b className="text-2xl font-bold text-indigo-700">{discount}%</b>
+        {discount! > 0 && (
+          <b className="text-2xl font-bold text-indigo-700">{discount}%</b>
+        )}
       </p>
     );
   }

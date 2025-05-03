@@ -9,3 +9,4 @@ export { ShowNotify } from "./show-notify";
 export { GenderCorrect } from "./gender-correct";
 export { SneakersPrice } from "./sneakers-price";
 export { StarsRating } from "./stars-rating";
+export { SliderBanners } from "./slider-banner";

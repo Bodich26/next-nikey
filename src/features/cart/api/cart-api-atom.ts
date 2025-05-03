@@ -9,7 +9,6 @@ export const fetchUserCartAtom = atom<Promise<CartResponse>>(async () => {
   }
 
   const data: CartResponse = await response.json();
-  console.log(data);
 
   return data;
 });

@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { slug } = await params;
   try {
-    const sneakersBySlug = await prisma.sneaker.findUnique({
+    const sneakerBySlug = await prisma.sneaker.findUnique({
       where: { slug },
       include: {
         variants: {
@@ -22,35 +22,21 @@ export async function GET(
       },
     });
 
-    if (!sneakersBySlug || sneakersBySlug.variants.length === 0) {
+    if (!sneakerBySlug || sneakerBySlug.variants.length === 0) {
       return NextResponse.json({
         error: "No sneaker or variants found",
         success: false,
-        item: [],
+        sneakerBySlug: null,
       });
     }
 
-    const [firstVariant, ...otherVariants] = sneakersBySlug.variants;
-
-    return NextResponse.json({
-      sneakersBySlug: {
-        ...sneakersBySlug,
-        variants: [
-          firstVariant, // полностью
-          ...otherVariants.map((variant) => ({
-            id: variant.id,
-            mainImage: variant.images[0], // если mainImage — первая картинка
-          })),
-        ],
-      },
-      success: true,
-    });
+    return NextResponse.json({ sneakerBySlug, success: true });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Sneakers by id",
-      item: [],
+      sneakerBySlug: null,
     });
   }
 }

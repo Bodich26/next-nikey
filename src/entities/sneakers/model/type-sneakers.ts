@@ -1,4 +1,10 @@
-import { ColorVariant, ColorVariantSize, Sneaker } from "@prisma/client";
+import {
+  ColorVariant,
+  ColorVariantSize,
+  ProductSlider,
+  Review,
+  Sneaker,
+} from "@prisma/client";
 
 type SneakersWithVariants = Sneaker & {
   variants: ColorVariant[];
@@ -29,9 +35,34 @@ type PopularSneakersResponse = {
   error?: string;
 };
 
+type SneakerSlug = Sneaker & {
+  variants: (ColorVariant & {
+    images: { url: string; colorVariantId: string }[];
+    sizes: ColorVariantSize &
+      {
+        size: { value: number };
+      }[];
+  })[];
+  reviews: Review[];
+};
+
+type SneakersSlugResponse = {
+  sneakerBySlug: SneakerSlug | null;
+  success: boolean;
+  error?: string;
+};
+
+type SneakersSliderResponse = {
+  sneakerSlider: ProductSlider[];
+  success: boolean;
+  error?: string;
+};
+
 export type {
   SneakersWithVariants,
   SneakerInCart,
   PopularSneakersResponse,
   SneakerInFavorites,
+  SneakersSlugResponse,
+  SneakersSliderResponse,
 };

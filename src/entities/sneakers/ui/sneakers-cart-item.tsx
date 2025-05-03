@@ -16,13 +16,13 @@ export const SneakersCartItem = ({ sneaker }: SneakerInCart) => {
         <h4 className="font-bold text-xl leading-none capitalize text-indigo-900 w-full">
           {sneaker.model}
         </h4>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-1">
           <strong className="text-base font-light leading-normal text-indigo-900">
             Gender: <span>{useGenderCapitalized(sneaker.gender)}</span>
           </strong>
           <Button
-            className="!bg-transparent rounded-full text-indigo-900 cursor-pointer transition-colors duration-300 px-1 py-1 w-20 h-6 gap-2"
-            href={`/catalog/${sneaker.slug}`}
+            className="rounded-full cursor-pointer transition-colors duration-300 px-1 py-1 w-20 h-6 gap-2"
+            href={`/sneakers/${sneaker.slug}`}
           >
             View <ArrowRightIcon width={14} height={14} />
           </Button>
