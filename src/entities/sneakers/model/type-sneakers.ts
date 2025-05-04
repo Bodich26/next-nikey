@@ -21,6 +21,15 @@ type SneakerInCart = {
   };
 };
 
+type SneakerVarianSizes = {
+  sizes: (ColorVariantSize & {
+    size: {
+      value: number;
+      id: number;
+    };
+  })[];
+};
+
 type SneakerInFavorites = {
   sneaker: Sneaker & {
     variants: (ColorVariant & {
@@ -38,10 +47,9 @@ type PopularSneakersResponse = {
 type SneakerSlug = Sneaker & {
   variants: (ColorVariant & {
     images: { url: string; colorVariantId: string }[];
-    sizes: ColorVariantSize &
-      {
-        size: { value: number };
-      }[];
+    sizes: (ColorVariantSize & {
+      size: { value: number; id: number };
+    })[];
   })[];
   reviews: Review[];
 };
@@ -65,4 +73,6 @@ export type {
   SneakerInFavorites,
   SneakersSlugResponse,
   SneakersSliderResponse,
+  SneakerSlug,
+  SneakerVarianSizes,
 };

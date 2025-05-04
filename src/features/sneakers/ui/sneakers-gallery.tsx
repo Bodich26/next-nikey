@@ -10,6 +10,7 @@ type Props = {
 
 export const SneakerGallery = ({ images }: Props) => {
   const { activeImage, setActiveImage } = useGallery(images);
+
   return (
     <div className="flex flex-col gap-8 w-[58%] min-w-0 max-md:w-[100%]">
       <div className="relative w-full aspect-[780/563] rounded-lg">
@@ -29,7 +30,7 @@ export const SneakerGallery = ({ images }: Props) => {
         />
       </div>
 
-      <div className="max-md:overflow-x-auto h-[220px]">
+      <div className="max-md:overflow-x-auto max-h-[220px]">
         <div className="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(137px,_1fr))] max-md:flex max-md:flex-nowrap max-md:min-w-max">
           {images.map((img, i) => (
             <div
