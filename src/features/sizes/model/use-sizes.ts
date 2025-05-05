@@ -1,8 +1,6 @@
 "use client";
-
 import React from "react";
 
-// Типизация хука
 export const useSizes = (
   sizes: Array<{
     id: number;
@@ -20,7 +18,7 @@ export const useSizes = (
 
   React.useEffect(() => {
     if (sizes && sizes.length > 0) {
-      setActiveSize(sizes[0]); // По умолчанию выбираем первый размер
+      setActiveSize(sizes[0]);
     }
   }, [sizes]);
 

@@ -69,6 +69,7 @@ export default async function Sneaker({ params }: SneakerSlug) {
             align="center"
           />
 
+          {/* Кроссовок */}
           <SneakersVariantSelection sneaker={sneakerBySlug} rating={rating} />
 
           {/* Отзывы */}
