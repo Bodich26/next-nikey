@@ -5,7 +5,7 @@ export async function getSneakersSlider(
 ): Promise<SneakersSliderResponse> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sneakers/${slug}/slider`,
+      `${process.env.NEXT_PUBLIC_API_SNEAKERS_URL}/${slug}/slider`,
       { cache: "no-cache" }
     );
 

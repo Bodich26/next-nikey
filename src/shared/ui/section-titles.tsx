@@ -34,7 +34,7 @@ export const SectionTitles = ({
           className
         )}
       >
-        {title + " " + types!}
+        {!types ? title : title + " " + types!}
       </Tag>
 
       {(align === "center" || align === "left") && (

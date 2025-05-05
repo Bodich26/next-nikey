@@ -1,8 +1,4 @@
-import {
-  getPopularSneakers,
-  SneakersCatalogItem,
-  SneakersWithVariants,
-} from "@/entities";
+import { getPopularSneakers, SneakersCatalogItem } from "@/entities";
 import {
   CollectionSlider,
   PromoBanner,
@@ -20,8 +16,10 @@ import Link from "next/link";
 export default async function Home() {
   const { collectionData, error: collectionError } =
     await getActiveCollection();
-  const { popularSneakersData, error: popularSneakersError } =
+
+  const { popularSneakers, error: popularSneakersError } =
     await getPopularSneakers();
+
   const { blogsData, error: blogError } = await getBlogs();
 
   return (
@@ -42,12 +40,12 @@ export default async function Home() {
           <Container>
             <SectionTitles title="Popular sneakers" as="h2" align="center" />
             <div className="grid gap-8 grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] mt-8">
-              {popularSneakersData.map((item: SneakersWithVariants) => (
+              {popularSneakers.map((item) => (
                 <SneakersCatalogItem key={item.id} sneaker={item} />
               ))}
             </div>
             {popularSneakersError && (
-              <ShowErrors error={popularSneakersError} />
+              <ShowErrors error={popularSneakersError} type="full" />
             )}
           </Container>
         </section>
@@ -163,7 +161,7 @@ export default async function Home() {
                 <BlogItem key={item.id} blog={item} />
               ))}
             </div>
-            {blogError && <ShowErrors error={blogError} />}
+            {blogError && <ShowErrors type="full" error={blogError} />}
             <Link
               className="border-b border-transparent inline-flex items-center gap-2 mt-4 capitalize text-indigo-600 font-bold text-base hover:border-b-1 hover:border-indigo-600 transition-colors duration-300"
               href="/blogs"

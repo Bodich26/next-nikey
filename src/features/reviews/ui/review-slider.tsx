@@ -7,20 +7,17 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { ShowErrors } from "@/shared";
-import { CollectionWithSneakers } from "@/features/collection-slider/model/type-collection";
 import { ReviewItem } from "./review-item";
+import { sneakerReview } from "../model/type-reviews";
 
-type CollectionWithSneakersProps = {
-  review: CollectionWithSneakers;
+type sneakerReviewProps = {
+  review: sneakerReview[];
   showError?: string;
 };
 
-export const ReviewSlider = ({
-  review,
-  showError,
-}: CollectionWithSneakersProps) => {
+export const ReviewSlider = ({ review, showError }: sneakerReviewProps) => {
   if (!review) {
-    return showError ? <ShowErrors error={showError} /> : null;
+    return showError ? <ShowErrors type="full" error={showError} /> : null;
   }
 
   return (
@@ -41,16 +38,23 @@ export const ReviewSlider = ({
             slidesPerView: 1,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: review.length < 2 ? review.length : 2,
+            centeredSlides: review.length < 2,
           },
           1024: {
-            slidesPerView: 3,
+            slidesPerView: review.length < 3 ? review.length : 3,
+            centeredSlides: review.length < 3,
           },
         }}
       >
-        {review?.sneakers?.map((item, index) => (
+        {review.map((item, index) => (
           <SwiperSlide key={index}>
-            <ReviewItem />
+            <ReviewItem
+              userIconSrc={item.user.image}
+              userName={item.user.name}
+              reviewGrade={item.rating}
+              reviewComment={item.comment}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

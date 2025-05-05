@@ -2,7 +2,6 @@ import {
   ColorVariant,
   ColorVariantSize,
   ProductSlider,
-  Review,
   Sneaker,
 } from "@prisma/client";
 
@@ -39,7 +38,7 @@ type SneakerInFavorites = {
 };
 
 type PopularSneakersResponse = {
-  popularSneakersData: SneakersWithVariants[];
+  popularSneakers: SneakersWithVariants[];
   success: boolean;
   error?: string;
 };
@@ -51,12 +50,13 @@ type SneakerSlug = Sneaker & {
       size: { value: number; id: number };
     })[];
   })[];
-  reviews: Review[];
+  rating: number;
 };
 
 type SneakersSlugResponse = {
   sneakerBySlug: SneakerSlug | null;
   success: boolean;
+  rating: number;
   error?: string;
 };
 

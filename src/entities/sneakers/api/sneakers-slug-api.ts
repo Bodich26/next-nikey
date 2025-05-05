@@ -5,7 +5,7 @@ export async function getSneakersSlug(
 ): Promise<SneakersSlugResponse> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sneakers/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_SNEAKERS_URL}/${slug}`,
       { cache: "no-cache" }
     );
 
@@ -17,6 +17,7 @@ export async function getSneakersSlug(
 
     return {
       sneakerBySlug: data.sneakerBySlug ?? null,
+      rating: data.rating,
       success: data.success,
       error: data.error,
     };
@@ -24,6 +25,7 @@ export async function getSneakersSlug(
     return {
       sneakerBySlug: null,
       success: false,
+      rating: 0,
       error: `Fetching Sneakers Slug error: ${error}`,
     };
   }

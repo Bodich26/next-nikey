@@ -3,7 +3,7 @@ import { PopularSneakersResponse } from "../model/type-sneakers";
 export async function getPopularSneakers(): Promise<PopularSneakersResponse> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sneakers/popular`,
+      `${process.env.NEXT_PUBLIC_API_SNEAKERS_URL}/popular`,
       { cache: "no-cache" }
     );
 
@@ -11,15 +11,15 @@ export async function getPopularSneakers(): Promise<PopularSneakersResponse> {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: PopularSneakersResponse = await response.json();
     return {
-      popularSneakersData: data.popularSneakers || [],
+      popularSneakers: data.popularSneakers || [],
       success: data.success,
       error: data.error,
     };
   } catch (error) {
     return {
-      popularSneakersData: [],
+      popularSneakers: [],
       success: false,
       error: `Fetching Popular Sneakers error: ${error}`,
     };

@@ -13,9 +13,10 @@ import clsx from "clsx";
 
 type Props = {
   sneaker: SneakerSlug;
+  rating: number;
 };
 
-export const SneakersVariantSelection = ({ sneaker }: Props) => {
+export const SneakersVariantSelection = ({ sneaker, rating }: Props) => {
   const [mainVariants, setMainVariants] = React.useState(sneaker.variants[0]);
 
   const prices = mainVariants.price;
@@ -44,7 +45,7 @@ export const SneakersVariantSelection = ({ sneaker }: Props) => {
           </p>
 
           <div className="mt-1">
-            <StarsRating rating={5} />
+            <StarsRating rating={rating} />
           </div>
         </div>
 

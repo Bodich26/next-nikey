@@ -1,8 +1,4 @@
-type Props = {
-  rating: number;
-};
-
-export const useCalcRating = ({ rating }: Props) => {
+export const useCalcRating = (rating: number) => {
   const safeRating = Math.min(rating, 5);
 
   const fullStars = Math.floor(safeRating);

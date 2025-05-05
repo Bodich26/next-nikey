@@ -1,12 +1,8 @@
 import { Star } from "lucide-react";
 import { useCalcRating } from "../hooks";
 
-type Props = {
-  rating: number;
-};
-
-export const StarsRating = ({ rating }: Props) => {
-  const { fullStars, halfStar, emptyStars } = useCalcRating({ rating });
+export const StarsRating = ({ rating }: { rating: number }) => {
+  const { fullStars, halfStar, emptyStars } = useCalcRating(rating);
 
   return (
     <div className="flex items-center gap-1">

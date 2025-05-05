@@ -5,3 +5,4 @@ export { BlogItem, getBlogs } from "./blog";
 export { FavoritesDrawer } from "./favorites";
 export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";
+export { getSneakersReviews, ReviewSlider } from "./reviews";

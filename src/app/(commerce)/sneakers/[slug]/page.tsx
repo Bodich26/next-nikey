@@ -1,5 +1,9 @@
 import { getSneakersSlider, getSneakersSlug } from "@/entities";
-import { SneakersVariantSelection } from "@/features";
+import {
+  SneakersVariantSelection,
+  getSneakersReviews,
+  ReviewSlider,
+} from "@/features";
 
 import {
   Container,
@@ -17,19 +21,25 @@ type SneakerSlug = {
 
 export default async function Sneaker({ params }: SneakerSlug) {
   const { slug } = await params;
-  const { sneakerBySlug, error: sneakersSlugError } = await getSneakersSlug(
-    slug
-  );
+  const {
+    sneakerBySlug,
+    rating,
+    error: sneakersSlugError,
+  } = await getSneakersSlug(slug);
+
   const { sneakerSlider, error: sneakersSliderError } = await getSneakersSlider(
     slug
   );
+
+  const { sneakerReviews, error: sneakerReviewsError } =
+    await getSneakersReviews(slug);
 
   if (!sneakerBySlug || sneakersSlugError) {
     return (
       <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
         <Container>
           <div className="p-[299px] flex justify-center items-center">
-            <ShowErrors error={"Упс... товар не найден!"} />
+            <ShowErrors type="full" error="Упс... товар не найден!" />
           </div>
         </Container>
       </section>
@@ -59,13 +69,20 @@ export default async function Sneaker({ params }: SneakerSlug) {
             align="center"
           />
 
-          <SneakersVariantSelection sneaker={sneakerBySlug} />
+          <SneakersVariantSelection sneaker={sneakerBySlug} rating={rating} />
 
           {/* Отзывы */}
-          {/* <ReviewSlider
-            review={collectionData[0]}
-            showError={collectionError}
-          /> */}
+          {sneakerReviews.length > 0 ? (
+            <ReviewSlider
+              review={sneakerReviews}
+              showError={sneakerReviewsError}
+            />
+          ) : (
+            <ShowErrors
+              type="border"
+              error="There are no reviews for these sneakers yet."
+            />
+          )}
         </Container>
       </section>
     </>
