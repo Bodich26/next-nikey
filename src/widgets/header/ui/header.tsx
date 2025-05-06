@@ -5,9 +5,10 @@ import Image from "next/image";
 
 import { Container } from "@/shared";
 import { NavMenu, FavoritesDrawer } from "@/features";
-import { Search, User } from "lucide-react";
+import { Search } from "lucide-react";
 import { useScrollHeader } from "../model/use-scroll-header";
 import { CartDrawer } from "@/features/cart";
+import { UserDropdown } from "@/entities";
 
 export const Header = () => {
   const scrolled = useScrollHeader();
@@ -30,7 +31,7 @@ export const Header = () => {
               <Search />
               <FavoritesDrawer />
               <CartDrawer />
-              <User />
+              <UserDropdown />
             </div>
           </div>
         </div>
