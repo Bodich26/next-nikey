@@ -1,5 +1,4 @@
 export { Container } from "./container";
-export { Providers } from "./providers";
 export { FooterMenu } from "./footer-menu";
 export { SectionTitles } from "./section-titles";
 export { PriceFormat } from "./price-format";

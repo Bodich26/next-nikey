@@ -20,10 +20,11 @@ type CartItem = CartOnSneakers & {
   };
 };
 
-type CartResponse = {
+type CartRes = {
   cartItems: CartItem[];
   totalAmount: number;
-  success: boolean;
+  success?: boolean;
+  error?: string;
 };
 
-export type { CartItem, CartResponse };
+export type { CartItem, CartRes };

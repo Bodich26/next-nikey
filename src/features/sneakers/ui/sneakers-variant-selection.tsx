@@ -3,10 +3,10 @@ import React from "react";
 import Link from "next/link";
 
 import { SneakerGallery } from "./sneakers-gallery";
-import { Eye, Heart, MoveLeft, ShoppingCart } from "lucide-react";
+import { Eye, MoveLeft, ShoppingCart } from "lucide-react";
 import { GenderCorrect, SneakersPrice, StarsRating } from "@/shared";
 import { Button } from "flowbite-react";
-import { SelectSize } from "@/features";
+import { ButtonToggleFavorites, SelectSize } from "@/features";
 import Image from "next/image";
 import { SneakerSlug } from "@/entities";
 import clsx from "clsx";
@@ -87,12 +87,7 @@ export const SneakersVariantSelection = ({ sneaker, rating }: Props) => {
             <ShoppingCart />
             Add to cart
           </Button>
-          <Button
-            className="uppercase w-[53px] cursor-pointer transition-colors duration-300 !p-4"
-            size="lg"
-          >
-            <Heart />
-          </Button>
+          <ButtonToggleFavorites sneakersId={sneaker.id} />
         </div>
       </div>
     </div>

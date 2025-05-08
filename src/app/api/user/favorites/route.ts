@@ -63,3 +63,88 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
+// Add Sneakers in favorites
+export async function POST(req: NextRequest) {
+  const currentUser = auth();
+  const clerkUserId = (await currentUser).userId;
+
+  if (!clerkUserId) {
+    return NextResponse.json({ favoriteItems: [], success: true });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: clerkUserId! },
+  });
+
+  if (!user) {
+    return NextResponse.json({ favoriteItems: [], success: true });
+  }
+
+  try {
+    const { sneakerId } = await req.json();
+
+    let userFavorites = await prisma.favorites.findUnique({
+      where: { userId: user.id },
+    });
+
+    if (!userFavorites) {
+      userFavorites = await prisma.favorites.create({
+        data: { userId: user.id },
+      });
+    }
+
+    await prisma.favoritesOnProducts.create({
+      data: {
+        favoritesId: userFavorites.id,
+        sneakerId,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Sneaker added to favorites",
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    return NextResponse.json({ error: "Internal Server Error" });
+  }
+}
+
+//Remove sneaker from favorites
+export async function DELETE(req: NextRequest) {
+  const currentUser = auth();
+  const clerkUserId = (await currentUser).userId;
+
+  if (!clerkUserId) {
+    return NextResponse.json({ favoriteItems: [], success: true });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: clerkUserId! },
+  });
+
+  if (!user) {
+    return NextResponse.json({ favoriteItems: [], success: true });
+  }
+
+  try {
+    const { sneakerId } = await req.json();
+
+    await prisma.favoritesOnProducts.deleteMany({
+      where: {
+        sneakerId,
+        favorites: { userId: user.id },
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Sneaker removed from favorites",
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    return NextResponse.json({ error: "Internal Server Error" });
+  }
+}

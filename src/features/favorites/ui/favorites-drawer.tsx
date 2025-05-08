@@ -1,6 +1,4 @@
 import { Heart } from "lucide-react";
-
-import { useAtom } from "jotai";
 import {
   Button,
   Drawer,
@@ -9,11 +7,11 @@ import {
   Spinner,
 } from "flowbite-react";
 import { ShowNotify, useDrawerState } from "@/shared";
-import { loadableUserFavoritesAtom } from "../api/favorites-api-atom";
 import { SneakersFavoritesItem } from "@/entities";
+import { useGetFavorites } from "../model/use-get-favorites";
 
 export const FavoritesDrawer = () => {
-  const [userFavorites] = useAtom(loadableUserFavoritesAtom);
+  const { favoritesItem, isLoading, isError } = useGetFavorites();
   const { isOpen, setIsOpen } = useDrawerState();
   const handleClose = () => setIsOpen(false);
 
@@ -44,7 +42,7 @@ export const FavoritesDrawer = () => {
         <DrawerHeader title={"Favorites"} />
         <DrawerItems className="!overflow-y-auto basis-[100%]">
           <div className="flex flex-col gap-4">
-            {userFavorites.state === "loading" && (
+            {isLoading && (
               <div className="flex items-center gap-2 flex-row text-center font-medium text-lg text-indigo-500 absolute top-[40%] right-[50%] translate-x-[50%]">
                 <Spinner
                   color="default"
@@ -55,21 +53,23 @@ export const FavoritesDrawer = () => {
               </div>
             )}
 
-            {userFavorites.state === "hasError" && (
+            {!isLoading && isError && (
               <ShowNotify notify="Failed to load favorites" />
             )}
 
-            {userFavorites.state === "hasData" &&
-              userFavorites.data &&
-              (userFavorites.data.favoriteItems.length > 0 ? (
-                userFavorites.data.favoriteItems.map((item, index) => (
-                  <SneakersFavoritesItem sneaker={item.sneaker} key={index} />
-                ))
-              ) : (
-                <ShowNotify notify="Your favorites is empty" />
+            {!isLoading &&
+              !isError &&
+              favoritesItem.length > 0 &&
+              favoritesItem.map((item, index) => (
+                <SneakersFavoritesItem sneaker={item.sneaker} key={index} />
               ))}
+
+            {!isLoading && !isError && favoritesItem.length === 0 && (
+              <ShowNotify notify="Your favorites is empty" />
+            )}
           </div>
         </DrawerItems>
+
         <div className="mt-4">
           <Button
             className="mt-2 uppercase w-full cursor-pointer transition-colors duration-300 h-[36px] "

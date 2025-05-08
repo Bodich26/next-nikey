@@ -10,9 +10,37 @@ type FavoritesItem = FavoritesOnProducts & {
   };
 };
 
-type FavoritesResponse = {
+type FavoritesRes = {
   favoriteItems: FavoritesItem[];
-  success: boolean;
+  success?: boolean;
+  error?: string;
 };
 
-export type { FavoritesItem, FavoritesResponse };
+type AddToFavoritesReq = {
+  sneakerId: string;
+};
+
+type AddToFavoritesRes = {
+  error?: string;
+  success?: boolean;
+  message?: string;
+};
+
+type RemoveFavoritesReq = {
+  sneakerId: string;
+};
+
+type RemoveFavoritesRes = {
+  error?: string;
+  success?: boolean;
+  message?: string;
+};
+
+export type {
+  FavoritesItem,
+  FavoritesRes,
+  AddToFavoritesReq,
+  AddToFavoritesRes,
+  RemoveFavoritesReq,
+  RemoveFavoritesRes,
+};

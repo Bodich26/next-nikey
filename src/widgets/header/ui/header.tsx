@@ -1,13 +1,12 @@
 "use client";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
 
 import { Container } from "@/shared";
-import { FavoritesDrawer } from "@/features";
 import { Search } from "lucide-react";
 import { useScrollHeader } from "../model/use-scroll-header";
-import { CartDrawer } from "@/features/cart";
 import { UserDropdown } from "@/entities";
 import {
   Navbar,
@@ -16,6 +15,15 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
+
+const FavoritesDrawer = dynamic(
+  () => import("@/features").then((m) => m.FavoritesDrawer),
+  { ssr: false }
+);
+const CartDrawer = dynamic(
+  () => import("@/features").then((m) => m.CartDrawer),
+  { ssr: false }
+);
 
 export const Header = () => {
   const scrolled = useScrollHeader();
