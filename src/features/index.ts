@@ -1,7 +1,11 @@
 export { CollectionSlider, getActiveCollection } from "./collection-slider";
 export { PromoBanner } from "./promo-banner";
 export { BlogItem, getBlogs } from "./blog";
-export { FavoritesDrawer, ButtonToggleFavorites } from "./favorites";
+export {
+  FavoritesDrawer,
+  ButtonToggleFavorites,
+  ButtonRemoveFavorites,
+} from "./favorites";
 export { CartDrawer } from "./cart";
 export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";

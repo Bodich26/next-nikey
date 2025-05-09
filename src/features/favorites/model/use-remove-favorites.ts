@@ -4,7 +4,7 @@ export const useRemoveFavorites = () => {
   const [removeFromFavorites, { isLoading: removing }] =
     useRemoveFavoritesMutation();
 
-  const removeProductFromFavorites = async (
+  const removeSneakerFromFavorites = async (
     sneakerId: string
   ): Promise<{ success: boolean; error?: unknown }> => {
     try {
@@ -18,5 +18,5 @@ export const useRemoveFavorites = () => {
     }
   };
 
-  return { removeProductFromFavorites, isLoading: removing };
+  return { removeSneakerFromFavorites, isLoading: removing };
 };

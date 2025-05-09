@@ -1,9 +1,10 @@
-import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
+import { ArrowRightIcon, Badge, Button } from "flowbite-react";
 import Image from "next/image";
 
 import clsx from "clsx";
 import { SneakerInFavorites } from "../model/type-sneakers";
 import { SneakersPrice, useGenderCapitalized } from "@/shared";
+import { ButtonRemoveFavorites } from "@/features";
 
 export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
   const firstVariant = sneaker.variants[0];
@@ -12,7 +13,7 @@ export const SneakersFavoritesItem = ({ sneaker }: SneakerInFavorites) => {
   return (
     <div className="rounded-lg cart-gradient relative  flex flex-col">
       <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2 z-10">
-        <CloseIcon className="cursor-pointer z-10" />
+        <ButtonRemoveFavorites sneakerId={sneaker.id} />
         <p className={clsx("opacity-0", hasDiscount && "opacity-100")}>
           <Badge color="indigo" size="sm" className="uppercase py-1 inline">
             Sale
