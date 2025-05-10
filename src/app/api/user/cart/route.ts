@@ -31,26 +31,15 @@ export async function GET(req: NextRequest) {
     }
 
     const userCart = await prisma.cart.findFirst({
-      where: {
-        OR: [{ userId: user.id }, { token }],
-      },
+      where: { OR: [{ userId: user.id }, { token }] },
       include: {
         cartItems: {
           include: {
-            sneaker: {
-              include: {
-                variants: {
-                  include: {
-                    images: true,
-                    sizes: { include: { size: true } },
-                  },
-                },
-              },
-            },
+            sneaker: true,
+            colorVariant: { include: { images: false } },
+            size: true,
           },
-          orderBy: {
-            createdAt: "desc",
-          },
+          orderBy: { createdAt: "desc" },
         },
       },
     });
@@ -65,11 +54,110 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       cartItems: userCart.cartItems,
-      totalAmount: 0,
+      totalAmount: userCart.totalAmount,
       success: true,
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ error: "Error while getting Cart", item: [] });
+    return NextResponse.json({
+      error: "Error while getting Cart",
+      cartItems: [],
+    });
+  }
+}
+
+//Add to cart
+export async function POST(req: NextRequest) {
+  const currentUser = auth();
+  const clerkUserId = (await currentUser).userId;
+
+  if (!clerkUserId) {
+    return NextResponse.json({
+      cartItems: [],
+      totalAmount: 0,
+      success: true,
+    });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: clerkUserId! },
+  });
+
+  if (!user) {
+    return NextResponse.json({
+      cartItems: [],
+      totalAmount: 0,
+      success: true,
+    });
+  }
+
+  try {
+    const { sneakerId, variantId, sizeId } = await req.json();
+
+    const colorVariantSize = await prisma.colorVariantSize.findFirst({
+      where: {
+        id: sizeId,
+        colorVariantId: variantId,
+        quantity: { gt: 0 },
+      },
+      include: {
+        size: true,
+      },
+    });
+
+    if (!colorVariantSize || colorVariantSize.quantity < 1) {
+      return NextResponse.json({
+        success: false,
+        message: "Выбранный размер отсутствует",
+      });
+    }
+
+    let userCart = await prisma.cart.findUnique({
+      where: { userId: user.id },
+    });
+
+    if (!userCart) {
+      userCart = await prisma.cart.create({
+        data: { userId: user.id },
+      });
+    }
+
+    const existingSneakers = await prisma.cartOnSneakers.findFirst({
+      where: {
+        cartId: userCart.id,
+        sneakerId,
+        colorVariantId: variantId,
+        sizeId: colorVariantSize.sizeId,
+      },
+    });
+
+    if (existingSneakers) {
+      return NextResponse.json({
+        success: false,
+        error: "Sneaker is already in the cart",
+      });
+    }
+
+    await prisma.cartOnSneakers.create({
+      data: {
+        cartId: userCart.id,
+        sneakerId,
+        colorVariantId: variantId,
+        sizeId: colorVariantSize.sizeId,
+        quantity: 1,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Sneaker added to cart",
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    return NextResponse.json({
+      error: "Error while adding Cart",
+      success: false,
+    });
   }
 }

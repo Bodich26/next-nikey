@@ -61,7 +61,7 @@ export const CartDrawer = () => {
               !isError &&
               cartItems.length > 0 &&
               cartItems.map((item, index) => (
-                <SneakersCartItem sneaker={item.sneaker} key={index} />
+                <SneakersCartItem sneaker={item} key={index} />
               ))}
 
             {!isLoading && !isError && cartItems.length === 0 && (

@@ -1,300 +1,307 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Sneaker {
-    id              String                @id @default(cuid())
-    brand           String
-    model           String
-    gender          Gender
-    ageCategory     AgeCategory
-    views           Int                   @default(0)
-    isAvailable     Boolean               @default(true)
-    slug            String                @unique
-    collectionId    String?
-    createdAt       DateTime              @default(now())
-    updatedAt       DateTime              @updatedAt
-    carts           CartOnSneakers[]
-    variants        ColorVariant[]
-    favorites       FavoritesOnProducts[]
-    orders          OrderItem[]
-    productSliders  ProductSlider[]
-    reviews         Review[]
-    collection      Collection?           @relation(fields: [collectionId], references: [id])
-    collectionImage String?
-    purposes        SneakerPurpose[]
+  id              String                @id @default(cuid())
+  brand           String
+  model           String
+  gender          Gender
+  ageCategory     AgeCategory
+  views           Int                   @default(0)
+  isAvailable     Boolean               @default(true)
+  slug            String                @unique
+  collectionId    String?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  collectionImage String?
+  carts           CartOnSneakers[]
+  variants        ColorVariant[]
+  favorites       FavoritesOnProducts[]
+  orders          OrderItem[]
+  productSliders  ProductSlider[]
+  reviews         Review[]
+  collection      Collection?           @relation(fields: [collectionId], references: [id])
+  purposes        SneakerPurpose[]
 }
 
 model ColorVariant {
-    id        String             @id @default(cuid())
-    color     String
-    mainImage String
-    quantity  Int
-    price     Int
-    discount  Int                @default(0)
-    sneakerId String
-    createdAt DateTime           @default(now())
-    updatedAt DateTime           @updatedAt
-    sneaker   Sneaker            @relation(fields: [sneakerId], references: [id])
-    sizes     ColorVariantSize[]
-    images    Image[]
+  id             String             @id @default(cuid())
+  color          String
+  mainImage      String
+  quantity       Int
+  price          Int
+  discount       Int                @default(0)
+  sneakerId      String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  sneaker        Sneaker            @relation(fields: [sneakerId], references: [id])
+  sizes          ColorVariantSize[]
+  images         Image[]
+  CartOnSneakers CartOnSneakers[]
 }
 
 model Collection {
-    id          String    @id @default(cuid())
-    name        String    @unique
-    description String
-    slug        String    @unique
-    isActive    Boolean   @default(false)
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    sneakers    Sneaker[]
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String
+  slug        String    @unique
+  isActive    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  sneakers    Sneaker[]
 }
 
 model SneakerPurpose {
-    id        Int         @id @default(autoincrement())
-    sneakerId String
-    purpose   PurposeType
-    sneaker   Sneaker     @relation(fields: [sneakerId], references: [id])
+  id        Int         @id @default(autoincrement())
+  sneakerId String
+  purpose   PurposeType
+  sneaker   Sneaker     @relation(fields: [sneakerId], references: [id])
 
-    @@unique([sneakerId, purpose])
+  @@unique([sneakerId, purpose])
 }
 
 model Size {
-    id            Int                @id @default(autoincrement())
-    value         Float              @unique
-    colorVariants ColorVariantSize[]
+  id             Int                @id @default(autoincrement())
+  value          Float              @unique
+  colorVariants  ColorVariantSize[]
+  CartOnSneakers CartOnSneakers[]
 }
 
 model ColorVariantSize {
-    id             Int          @id @default(autoincrement())
-    colorVariantId String
-    sizeId         Int
-    quantity       Int
-    colorVariant   ColorVariant @relation(fields: [colorVariantId], references: [id])
-    size           Size         @relation(fields: [sizeId], references: [id])
+  id             Int          @id @default(autoincrement())
+  colorVariantId String
+  sizeId         Int
+  quantity       Int
+  colorVariant   ColorVariant @relation(fields: [colorVariantId], references: [id])
+  size           Size         @relation(fields: [sizeId], references: [id])
 
-    @@unique([colorVariantId, sizeId])
+  @@unique([colorVariantId, sizeId])
 }
 
 model Image {
-    id             Int          @id @default(autoincrement())
-    url            String
-    colorVariantId String
-    colorVariant   ColorVariant @relation(fields: [colorVariantId], references: [id])
+  id             Int          @id @default(autoincrement())
+  url            String
+  colorVariantId String
+  colorVariant   ColorVariant @relation(fields: [colorVariantId], references: [id])
 }
 
 model User {
-    id          String       @id @default(cuid())
-    clerkId     String?      @unique
-    name        String
-    email       String       @unique
-    password    String?
-    image       String
-    role        Role         @default(USER)
-    createdAt   DateTime     @default(now())
-    updatedAt   DateTime     @updatedAt
-    cart        Cart?
-    favorites   Favorites?
-    order       Order[]
-    reviews     Review[]
-    userCoupons UserCoupon[]
+  id          String       @id @default(cuid())
+  clerkId     String?      @unique
+  name        String
+  email       String       @unique
+  password    String?
+  image       String
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  cart        Cart?
+  favorites   Favorites?
+  order       Order[]
+  reviews     Review[]
+  userCoupons UserCoupon[]
 }
 
 model Review {
-    id        String   @id @default(cuid())
-    rating    Float
-    comment   String?
-    sneakerId String
-    userId    String
-    createdAt DateTime @default(now())
-    sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
-    user      User     @relation(fields: [userId], references: [id])
+  id        String   @id @default(cuid())
+  rating    Float
+  comment   String?
+  sneakerId String
+  userId    String
+  createdAt DateTime @default(now())
+  sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
-    @@unique([sneakerId, userId])
+  @@unique([sneakerId, userId])
 }
 
 model Coupon {
-    id             String       @id @default(cuid())
-    code           String       @unique
-    description    String?
-    discount       Int          @default(0)
-    minOrderValue  Float?
-    expiresAt      DateTime?
-    onlyFirstOrder Boolean      @default(false)
-    createdAt      DateTime     @default(now())
-    users          UserCoupon[]
+  id             String       @id @default(cuid())
+  code           String       @unique
+  description    String?
+  discount       Int          @default(0)
+  minOrderValue  Float?
+  expiresAt      DateTime?
+  onlyFirstOrder Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  users          UserCoupon[]
 }
 
 model UserCoupon {
-    id       Int       @id @default(autoincrement())
-    userId   String
-    couponId String
-    used     Boolean   @default(false)
-    usedAt   DateTime?
-    coupon   Coupon    @relation(fields: [couponId], references: [id])
-    user     User      @relation(fields: [userId], references: [id])
+  id       Int       @id @default(autoincrement())
+  userId   String
+  couponId String
+  used     Boolean   @default(false)
+  usedAt   DateTime?
+  coupon   Coupon    @relation(fields: [couponId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
 
-    @@unique([userId, couponId])
+  @@unique([userId, couponId])
 }
 
 model Cart {
-    id          Int              @id @default(autoincrement())
-    userId      String?          @unique
-    token       String?          @unique
-    expiresAt   DateTime?
-    totalAmount Int              @default(0)
-    createdAt   DateTime         @default(now())
-    updatedAt   DateTime         @updatedAt
-    user        User?            @relation(fields: [userId], references: [id])
-    cartItems   CartOnSneakers[]
+  id          Int              @id @default(autoincrement())
+  userId      String?          @unique
+  token       String?          @unique
+  expiresAt   DateTime?
+  totalAmount Int              @default(0)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  user        User?            @relation(fields: [userId], references: [id])
+  cartItems   CartOnSneakers[]
 }
 
 model CartOnSneakers {
-    cartId    Int
-    sneakerId String
-    quantity  Int      @default(1)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    cart      Cart     @relation(fields: [cartId], references: [id])
-    sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
+  cartId         Int
+  sneakerId      String
+  colorVariantId String
+  sizeId         Int
+  quantity       Int      @default(1)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-    @@id([cartId, sneakerId])
+  cart         Cart         @relation(fields: [cartId], references: [id])
+  sneaker      Sneaker      @relation(fields: [sneakerId], references: [id])
+  colorVariant ColorVariant @relation(fields: [colorVariantId], references: [id])
+  size         Size         @relation(fields: [sizeId], references: [id])
+
+  @@id([cartId, sneakerId, colorVariantId, sizeId])
 }
 
 model Favorites {
-    id            Int                   @id @default(autoincrement())
-    token         String?               @unique
-    expiresAt     DateTime?
-    userId        String?               @unique
-    createdAt     DateTime              @default(now())
-    updatedAt     DateTime              @updatedAt
-    user          User?                 @relation(fields: [userId], references: [id])
-    favoriteItems FavoritesOnProducts[]
+  id            Int                   @id @default(autoincrement())
+  token         String?               @unique
+  expiresAt     DateTime?
+  userId        String?               @unique
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  user          User?                 @relation(fields: [userId], references: [id])
+  favoriteItems FavoritesOnProducts[]
 }
 
 model FavoritesOnProducts {
-    favoritesId Int
-    sneakerId   String
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    favorites   Favorites @relation(fields: [favoritesId], references: [id])
-    sneaker     Sneaker   @relation(fields: [sneakerId], references: [id])
+  favoritesId Int
+  sneakerId   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  favorites   Favorites @relation(fields: [favoritesId], references: [id])
+  sneaker     Sneaker   @relation(fields: [sneakerId], references: [id])
 
-    @@id([sneakerId, favoritesId])
+  @@id([sneakerId, favoritesId])
 }
 
 model Order {
-    id              Int            @id @default(autoincrement())
-    orderNumber     String         @unique
-    userId          String?
-    sessionId       String?
-    name            String
-    phone           String
-    email           String
-    deliveryAddress String
-    status          OrderStatus    @default(PENDING)
-    paymentMethod   PaymentMethod
-    shippingMethod  ShippingMethod
-    shippingCost    Float
-    orderAmount     Float
-    createdAt       DateTime       @default(now())
-    updatedAt       DateTime       @updatedAt
-    user            User?          @relation(fields: [userId], references: [id])
-    orderItems      OrderItem[]
+  id              Int            @id @default(autoincrement())
+  orderNumber     String         @unique
+  userId          String?
+  sessionId       String?
+  name            String
+  phone           String
+  email           String
+  deliveryAddress String
+  status          OrderStatus    @default(PENDING)
+  paymentMethod   PaymentMethod
+  shippingMethod  ShippingMethod
+  shippingCost    Float
+  orderAmount     Float
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  user            User?          @relation(fields: [userId], references: [id])
+  orderItems      OrderItem[]
 
-    @@index([status])
+  @@index([status])
 }
 
 model OrderItem {
-    id        Int      @id @default(autoincrement())
-    orderId   Int
-    sneakerId String
-    quantity  Int
-    price     Float
-    createdAt DateTime @default(now())
-    order     Order    @relation(fields: [orderId], references: [id])
-    sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  sneakerId String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id])
+  sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
 }
 
 model Blog {
-    id         Int      @id @default(autoincrement())
-    title      String
-    slug       String   @unique
-    image      String
-    content    String
-    isFeatured Boolean  @default(false)
-    author     String
-    views      Int      @default(0)
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  title      String
+  slug       String   @unique
+  image      String
+  content    String
+  isFeatured Boolean  @default(false)
+  author     String
+  views      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model CatalogSlider {
-    id        Int      @id @default(autoincrement())
-    image     String
-    title     String
-    text      String
-    order     Int      @default(0)
-    isActive  Boolean  @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  image     String
+  title     String
+  text      String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model ProductSlider {
-    id        Int      @id @default(autoincrement())
-    sneakerId String
-    image     String
-    title     String
-    text      String
-    order     Int      @default(0)
-    isActive  Boolean  @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
+  id        Int      @id @default(autoincrement())
+  sneakerId String
+  image     String
+  title     String
+  text      String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sneaker   Sneaker  @relation(fields: [sneakerId], references: [id])
 }
 
 enum Role {
-    USER
-    ADMIN
+  USER
+  ADMIN
 }
 
 enum ShippingMethod {
-    STANDARD
-    EXPEDITED
-    NEXT_DAY
+  STANDARD
+  EXPEDITED
+  NEXT_DAY
 }
 
 enum PaymentMethod {
-    ONLINE
-    UPON_RECEIPT
+  ONLINE
+  UPON_RECEIPT
 }
 
 enum OrderStatus {
-    PENDING
-    SUCCESS
-    REJECTED
+  PENDING
+  SUCCESS
+  REJECTED
 }
 
 enum Gender {
-    MEN
-    WOMEN
-    UNISEX
+  MEN
+  WOMEN
+  UNISEX
 }
 
 enum PurposeType {
-    LIFESTYLE
-    RUNNING
-    TRAINING
+  LIFESTYLE
+  RUNNING
+  TRAINING
 }
 
 enum AgeCategory {
-    ADULT
-    KIDS
+  ADULT
+  KIDS
 }

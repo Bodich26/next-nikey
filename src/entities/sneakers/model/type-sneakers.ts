@@ -1,7 +1,9 @@
 import {
+  CartOnSneakers,
   ColorVariant,
   ColorVariantSize,
   ProductSlider,
+  Size,
   Sneaker,
 } from "@prisma/client";
 
@@ -9,15 +11,10 @@ type SneakersWithVariants = Sneaker & {
   variants: ColorVariant[];
 };
 
-type SneakerInCart = {
-  sneaker: Sneaker & {
-    variants: (ColorVariant & {
-      images: { url: string }[];
-      sizes: (ColorVariantSize & {
-        size: { value: number };
-      })[];
-    })[];
-  };
+type SneakerInCart = CartOnSneakers & {
+  sneaker: Sneaker;
+  colorVariant: ColorVariant;
+  size: Size;
 };
 
 type SneakerVarianSizes = {

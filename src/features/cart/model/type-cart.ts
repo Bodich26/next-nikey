@@ -1,23 +1,9 @@
-import {
-  CartOnSneakers,
-  Sneaker,
-  ColorVariant,
-  ColorVariantSize,
-} from "@prisma/client";
+import { CartOnSneakers, Sneaker, ColorVariant, Size } from "@prisma/client";
 
 type CartItem = CartOnSneakers & {
-  sneaker: Sneaker & {
-    variants: (ColorVariant & {
-      images: {
-        url: string;
-      }[];
-      sizes: (ColorVariantSize & {
-        size: {
-          value: number;
-        };
-      })[];
-    })[];
-  };
+  sneaker: Sneaker;
+  colorVariant: ColorVariant;
+  size: Size;
 };
 
 type CartRes = {
@@ -27,4 +13,33 @@ type CartRes = {
   error?: string;
 };
 
-export type { CartItem, CartRes };
+type AddToCartRes = {
+  error?: string;
+  success?: boolean;
+  message?: string;
+};
+
+type AddToCartReq = {
+  sneakerId: string;
+  variantId: string;
+  sizeId: number;
+};
+
+type RemoveFromCartReq = {
+  sneakerId: string;
+};
+
+type RemoveFromCartRes = {
+  error?: string;
+  success?: boolean;
+  message?: string;
+};
+
+export type {
+  CartItem,
+  CartRes,
+  AddToCartReq,
+  AddToCartRes,
+  RemoveFromCartReq,
+  RemoveFromCartRes,
+};

@@ -3,10 +3,9 @@ import React from "react";
 import Link from "next/link";
 
 import { SneakerGallery } from "./sneakers-gallery";
-import { Eye, MoveLeft, ShoppingCart } from "lucide-react";
+import { Eye, MoveLeft } from "lucide-react";
 import { GenderCorrect, SneakersPrice, StarsRating } from "@/shared";
-import { Button } from "flowbite-react";
-import { ButtonToggleFavorites, SelectSize } from "@/features";
+import { ButtonAddToCart, ButtonToggleFavorites, SelectSize } from "@/features";
 import Image from "next/image";
 import { SneakerSlug } from "@/entities";
 import clsx from "clsx";
@@ -18,6 +17,7 @@ type Props = {
 
 export const SneakersVariantSelection = ({ sneaker, rating }: Props) => {
   const [mainVariants, setMainVariants] = React.useState(sneaker.variants[0]);
+  const [selectedSizeId, setSelectedSizeId] = React.useState<number>(0);
 
   const prices = mainVariants.price;
   const discounts = mainVariants.discount;
@@ -76,17 +76,14 @@ export const SneakersVariantSelection = ({ sneaker, rating }: Props) => {
           </div>
         </div>
 
-        <SelectSize sizes={mainVariants.sizes} />
+        <SelectSize sizes={mainVariants.sizes} onChange={setSelectedSizeId} />
 
         <div className="w-full flex justify-between max-sm:gap-4 gap-8 items-center">
-          <Button
-            className="uppercase w-full cursor-pointer transition-colors duration-300 gap-2"
-            size="lg"
-            onClick={() => console.log(mainVariants.id)}
-          >
-            <ShoppingCart />
-            Add to cart
-          </Button>
+          <ButtonAddToCart
+            sneakerId={sneaker.id}
+            variantId={mainVariants.id}
+            sizeVariantId={selectedSizeId}
+          />
           <ButtonToggleFavorites sneakersId={sneaker.id} />
         </div>
       </div>
