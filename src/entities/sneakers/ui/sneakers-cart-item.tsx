@@ -1,9 +1,10 @@
-import { ArrowRightIcon, Badge, Button, CloseIcon } from "flowbite-react";
+import { ArrowRightIcon, Badge, Button } from "flowbite-react";
 import Image from "next/image";
 
 import clsx from "clsx";
 import { SneakerInCart } from "../model/type-sneakers";
 import { SneakersPrice, useGenderCapitalized } from "@/shared";
+import { ButtonRemoveCart } from "@/features";
 
 type Props = {
   sneaker: SneakerInCart;
@@ -35,7 +36,11 @@ export const SneakersCartItem = ({ sneaker }: Props) => {
         <div className="flex flex-col gap-5 mt-3">
           <div className="rounded-lg cart-gradient relative flex flex-col">
             <div className="flex items-center justify-between w-full gap-2 absolute pt-2 px-2 z-10">
-              <CloseIcon className="cursor-pointer z-10" />
+              <ButtonRemoveCart
+                sneakerId={sneaker.sneakerId}
+                variantId={sneaker.colorVariantId}
+                sizeId={sneaker.sizeId}
+              />
               <p
                 className={clsx(
                   "opacity-0",

@@ -27,6 +27,8 @@ type AddToCartReq = {
 
 type RemoveFromCartReq = {
   sneakerId: string;
+  variantId: string;
+  sizeId: number;
 };
 
 type RemoveFromCartRes = {

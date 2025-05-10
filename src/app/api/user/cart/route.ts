@@ -161,3 +161,65 @@ export async function POST(req: NextRequest) {
     });
   }
 }
+
+//Remove from cart
+export async function DELETE(req: NextRequest) {
+  const currentUser = auth();
+  const clerkUserId = (await currentUser).userId;
+
+  if (!clerkUserId) {
+    return NextResponse.json({
+      cartItems: [],
+      totalAmount: 0,
+      success: true,
+    });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: clerkUserId! },
+  });
+
+  if (!user) {
+    return NextResponse.json({
+      cartItems: [],
+      totalAmount: 0,
+      success: true,
+    });
+  }
+
+  try {
+    const { sneakerId, variantId, sizeId } = await req.json();
+
+    const userCart = await prisma.cart.findUnique({
+      where: { userId: user.id },
+    });
+
+    if (!userCart) {
+      return NextResponse.json({
+        success: false,
+        message: "Cart not found",
+      });
+    }
+
+    await prisma.cartOnSneakers.deleteMany({
+      where: {
+        sneakerId,
+        cartId: userCart.id,
+        colorVariantId: variantId,
+        sizeId,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Sneaker remove from cart",
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    return NextResponse.json({
+      error: "Internal Server Error",
+      success: false,
+    });
+  }
+}

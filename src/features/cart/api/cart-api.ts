@@ -27,10 +27,10 @@ export const cartApi = createApi({
       invalidatesTags: ["Cart"],
     }),
     removeFromCart: builder.mutation<RemoveFromCartRes, RemoveFromCartReq>({
-      query: ({ sneakerId }) => ({
+      query: ({ sneakerId, variantId, sizeId }) => ({
         url: "/cart",
         method: "DELETE",
-        body: { sneakerId },
+        body: { sneakerId, variantId, sizeId },
       }),
       invalidatesTags: ["Cart"],
     }),

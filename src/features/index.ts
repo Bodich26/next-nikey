@@ -6,7 +6,7 @@ export {
   ButtonToggleFavorites,
   ButtonRemoveFavorites,
 } from "./favorites";
-export { CartDrawer, ButtonAddToCart } from "./cart";
+export { CartDrawer, ButtonAddToCart, ButtonRemoveCart } from "./cart";
 export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";
 export { getSneakersReviews, ReviewSlider } from "./reviews";
