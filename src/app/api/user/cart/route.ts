@@ -52,9 +52,16 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    const totalAmount = userCart.cartItems.reduce((sum, item) => {
+      const price = item.colorVariant.price;
+      const discount = item.colorVariant.discount || 0;
+      const priceWithDiscount = price * (1 - discount / 100);
+      return sum + priceWithDiscount * item.quantity;
+    }, 0);
+
     return NextResponse.json({
       cartItems: userCart.cartItems,
-      totalAmount: userCart.totalAmount,
+      totalAmount,
       success: true,
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

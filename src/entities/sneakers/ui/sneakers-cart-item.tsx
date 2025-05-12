@@ -21,7 +21,7 @@ export const SneakersCartItem = ({ sneaker }: Props) => {
         <h4 className="font-bold text-xl leading-none capitalize text-indigo-900 w-full">
           {sneaker.sneaker.model}
         </h4>
-        <div className="flex justify-between items-center mt-1">
+        <div className="flex justify-between items-center">
           <strong className="text-base font-light leading-normal text-indigo-900">
             Gender: <span>{useGenderCapitalized(sneaker.sneaker.gender)}</span>
           </strong>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { Container } from "@/shared";
-import { Search } from "lucide-react";
+import { Heart, Search, ShoppingCart } from "lucide-react";
 import { useScrollHeader } from "../model/use-scroll-header";
 import { UserDropdown } from "@/entities";
 import {
@@ -18,11 +18,11 @@ import {
 
 const FavoritesDrawer = dynamic(
   () => import("@/features").then((m) => m.FavoritesDrawer),
-  { ssr: false }
+  { ssr: false, loading: () => <Heart /> }
 );
 const CartDrawer = dynamic(
   () => import("@/features").then((m) => m.CartDrawer),
-  { ssr: false }
+  { ssr: false, loading: () => <ShoppingCart /> }
 );
 
 export const Header = () => {
