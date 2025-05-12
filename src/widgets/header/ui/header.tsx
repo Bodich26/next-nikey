@@ -24,6 +24,10 @@ const CartDrawer = dynamic(
   () => import("@/features").then((m) => m.CartDrawer),
   { ssr: false, loading: () => <ShoppingCart /> }
 );
+const SearchDrawer = dynamic(
+  () => import("@/features").then((m) => m.SearchDrawer),
+  { ssr: false, loading: () => <Search /> }
+);
 
 export const Header = () => {
   const scrolled = useScrollHeader();
@@ -107,7 +111,7 @@ export const Header = () => {
             <NavbarLink href="#">Kids</NavbarLink>
             <NavbarLink href="#">About us</NavbarLink>
             <div className="lg:ml-16 flex items-center gap-5 max-md:justify-end max-md:mt-7">
-              <Search />
+              <SearchDrawer />
               <FavoritesDrawer />
               <CartDrawer />
               <UserDropdown />

@@ -1,5 +1,6 @@
 export { SneakersCatalogItem } from "./ui/sneakers-catalog-item";
 export { SneakersCartItem } from "./ui/sneakers-cart-item";
+export { SneakersSearchItem } from "./ui/sneakers-search-item";
 export { SneakersFavoritesItem } from "./ui/sneakers-favorites-item";
 export { getPopularSneakers } from "./api/sneakers-api";
 export {

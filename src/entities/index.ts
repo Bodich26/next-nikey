@@ -1,6 +1,7 @@
 export {
   getPopularSneakers,
   SneakersCatalogItem,
+  SneakersSearchItem,
   SneakersFavoritesItem,
   SneakersCartItem,
   getSneakersSlug,

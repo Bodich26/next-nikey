@@ -33,6 +33,13 @@ type SneakerInFavorites = {
     })[];
   };
 };
+type SearchSneakers = {
+  sneaker: Sneaker & {
+    variants: (ColorVariant & {
+      images: { url: string }[];
+    })[];
+  };
+};
 
 type PopularSneakersResponse = {
   popularSneakers: SneakersWithVariants[];
@@ -71,5 +78,6 @@ export type {
   SneakersSlugResponse,
   SneakersSliderResponse,
   SneakerSlug,
+  SearchSneakers,
   SneakerVarianSizes,
 };

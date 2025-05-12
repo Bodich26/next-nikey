@@ -10,6 +10,7 @@ export { CartDrawer, ButtonAddToCart, ButtonRemoveCart } from "./cart";
 export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";
 export { getSneakersReviews, ReviewSlider } from "./reviews";
+export { SearchDrawer } from "./search";
 
 //--Get store
 export { favoritesApi, useGetFavoritesQuery } from "./favorites";
