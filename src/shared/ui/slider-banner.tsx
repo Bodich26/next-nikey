@@ -9,16 +9,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { ShowErrors } from "@/shared";
-import { ProductSlider } from "@prisma/client";
+import { CatalogSlider, ProductSlider } from "@prisma/client";
 
 type SneakerSlideProps = {
-  slide: ProductSlider[];
+  slide: ProductSlider[] | CatalogSlider[];
   showError?: string;
 };
 
 export const SliderBanners = ({ slide, showError }: SneakerSlideProps) => {
   if (!slide || slide.length === 0) {
-    return showError ? <ShowErrors error={showError} /> : null;
+    return showError ? <ShowErrors error={showError} type={"full"} /> : null;
   }
 
   return (

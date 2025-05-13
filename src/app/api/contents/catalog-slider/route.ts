@@ -18,7 +18,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Catalog Slider",
-      item: [],
+      catalogSlider: [],
     });
   }
 }

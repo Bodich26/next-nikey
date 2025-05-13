@@ -4,16 +4,32 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
 
 export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-
-  const collections = searchParams.get("collections") || "all";
-
   try {
     const sneakers = await prisma.sneaker.findMany({
-      where: {
+      include: {
         collection: {
-          slug: collections,
+          select: {
+            slug: true,
+          },
         },
+        variants: {
+          include: {
+            sizes: true,
+          },
+          orderBy: {
+            createdAt: "asc",
+          },
+
+          take: 1,
+        },
+        purposes: {
+          select: {
+            purpose: true,
+          },
+        },
+      },
+      orderBy: {
+        views: "desc",
       },
     });
 
@@ -31,6 +47,7 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     return NextResponse.json({
       error: "Error while getting Sneakers",
+      success: false,
       sneakers: [],
     });
   }

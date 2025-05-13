@@ -103,12 +103,12 @@ export const Header = () => {
 
           <NavbarToggle />
           <NavbarCollapse>
-            <NavbarLink href="#">New</NavbarLink>
-            <NavbarLink as={Link} href="#">
+            <NavbarLink href={`/catalog`}>New</NavbarLink>
+            <NavbarLink as={Link} href={`/catalog`}>
               Men
             </NavbarLink>
-            <NavbarLink href="#">Women</NavbarLink>
-            <NavbarLink href="#">Kids</NavbarLink>
+            <NavbarLink href={`/catalog`}>Women</NavbarLink>
+            <NavbarLink href={`/catalog`}>Kids</NavbarLink>
             <NavbarLink href="#">About us</NavbarLink>
             <div className="lg:ml-16 flex items-center gap-5 max-md:justify-end max-md:mt-7">
               <SearchDrawer />

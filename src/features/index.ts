@@ -11,7 +11,14 @@ export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";
 export { getSneakersReviews, ReviewSlider } from "./reviews";
 export { SearchDrawer } from "./search";
+export { getCatalogSlider } from "./catalog-slider";
+
+export { SneakersFilterList } from "./sneakers-filter";
 
 //--Get store
 export { favoritesApi, useGetFavoritesQuery } from "./favorites";
 export { cartApi, useGetCartQuery } from "./cart";
+export {
+  sneakersFilterApi,
+  useGetSneakersFilterQuery,
+} from "./sneakers-filter";
