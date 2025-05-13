@@ -6,7 +6,7 @@ import {
   DrawerItems,
   Spinner,
 } from "flowbite-react";
-import { ShowNotify, useDrawerState } from "@/shared";
+import { CircleQuantity, ShowNotify, useDrawerState } from "@/shared";
 import { SneakersFavoritesItem } from "@/entities";
 import { useGetFavorites } from "../model/use-get-favorites";
 
@@ -17,11 +17,12 @@ export const FavoritesDrawer = () => {
 
   return (
     <>
-      <Heart
+      <CircleQuantity
         onClick={() => setIsOpen(true)}
-        cursor="Pointer"
-        className="hover-effect-icon"
+        icon={<Heart className="hover-effect-icon" />}
+        quantity={favoritesItem.length}
       />
+
       <Drawer
         open={isOpen}
         onClose={handleClose}

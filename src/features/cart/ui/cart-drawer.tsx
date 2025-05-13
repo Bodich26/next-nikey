@@ -7,7 +7,12 @@ import {
   Spinner,
 } from "flowbite-react";
 import { SneakersCartItem } from "@/entities";
-import { PriceFormat, ShowNotify, useDrawerState } from "@/shared";
+import {
+  CircleQuantity,
+  PriceFormat,
+  ShowNotify,
+  useDrawerState,
+} from "@/shared";
 import { useGetCart } from "../model/use-get-cart";
 
 export const CartDrawer = () => {
@@ -17,11 +22,12 @@ export const CartDrawer = () => {
 
   return (
     <>
-      <ShoppingCart
+      <CircleQuantity
         onClick={() => setIsOpen(true)}
-        cursor="Pointer"
-        className="hover-effect-icon"
+        icon={<ShoppingCart className="hover-effect-icon" />}
+        quantity={cartItems.length}
       />
+
       <Drawer
         open={isOpen}
         onClose={handleClose}

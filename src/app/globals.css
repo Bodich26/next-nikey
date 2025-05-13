@@ -50,6 +50,9 @@
   .hover-effect-icon:hover {
     @apply hover:stroke-indigo-400 cursor-pointer transition-all duration-300;
   }
+  .div-icon-hover:hover .hover-effect-icon {
+    @apply stroke-indigo-400 cursor-pointer transition-all duration-300;
+  }
 
   .cart-gradient {
     background: linear-gradient(
