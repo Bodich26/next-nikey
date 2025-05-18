@@ -17,10 +17,25 @@ type CartItem = Sneaker & {
   purposes: Purpose[];
 };
 
+type SearchParams = {
+  [key: string]: string | string[] | undefined;
+};
+
 type SneakersFilterRes = {
   sneakers: CartItem[];
   success?: boolean;
   error?: string;
 };
 
-export type { SneakersFilterRes };
+type Option = {
+  id: string;
+  label: string;
+};
+
+type CheckboxGroupProps = {
+  title: string;
+  name: string;
+  options: Option[];
+};
+
+export type { SneakersFilterRes, CheckboxGroupProps, SearchParams };

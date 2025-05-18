@@ -10,3 +10,4 @@ export { SneakersPrice } from "./sneakers-price";
 export { StarsRating } from "./stars-rating";
 export { SliderBanners } from "./slider-banner";
 export { CircleQuantity } from "./circle-quantity";
+export { SkeletonSneakersItem } from "./skeleton-sneakers-item";

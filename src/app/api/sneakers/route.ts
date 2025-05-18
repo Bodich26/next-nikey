@@ -2,10 +2,26 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
+import { Prisma } from "@prisma/client";
 
 export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+
+    const discount = searchParams.get("discount") || "";
+
+    const filters: Prisma.SneakerWhereInput = {};
+
+    if (discount === "sales") {
+      filters.variants = {
+        some: {
+          discount: { gt: 0 },
+        },
+      };
+    }
+
     const sneakers = await prisma.sneaker.findMany({
+      where: filters,
       include: {
         collection: {
           select: {

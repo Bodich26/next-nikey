@@ -1,7 +1,7 @@
 import { useGetSneakersFilterQuery } from "../api/sneakers-filter-api";
 
-export const useGetSneakersFilter = () => {
-  const { data, isLoading, error } = useGetSneakersFilterQuery();
+export const useGetSneakersFilter = (searchParams) => {
+  const { data, isLoading, error } = useGetSneakersFilterQuery(searchParams);
 
   return {
     sneakers: data?.sneakers || [],

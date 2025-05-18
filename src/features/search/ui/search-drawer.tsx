@@ -55,7 +55,9 @@ export const SearchDrawer = () => {
           <div className="flex flex-col gap-4">
             {isError && <ShowNotify notify="Failed to search sneakers" />}
 
-            {sneakers.length === 0 && <p className="mt-2">Result: 0</p>}
+            {sneakers.length === 0 && (
+              <p className="mt-2">Find your new sneakers...</p>
+            )}
 
             {!isLoading &&
               !isError &&
