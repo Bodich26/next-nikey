@@ -3,7 +3,7 @@ import React from "react";
 import { Heart } from "lucide-react";
 import { useGetFavorites } from "../model/use-get-favorites";
 import clsx from "clsx";
-import { useFavoriteActions } from "../model/use-favorites-actions";
+// import { useFavoriteActions } from "../model/use-favorites-actions";
 import { Button } from "flowbite-react";
 
 interface IProps {
@@ -13,7 +13,7 @@ interface IProps {
 export const ButtonToggleFavorites = ({ sneakersId }: IProps) => {
   const [isCooldown, setIsCooldown] = React.useState<boolean>(false);
   const { favoriteIds } = useGetFavorites();
-  const { toggleFavorite } = useFavoriteActions();
+  // const { toggleFavorite } = useFavoriteActions();
   // const { showToast } = useHandleToast();
 
   const isFavorite = favoriteIds.has(sneakersId);
@@ -24,7 +24,7 @@ export const ButtonToggleFavorites = ({ sneakersId }: IProps) => {
     if (isCooldown) return;
 
     setIsCooldown(true);
-    const { success, error } = await toggleFavorite(sneakersId, isFavorite);
+    // const { success, error } = await toggleFavorite(sneakersId, isFavorite);
 
     // if (success) {
     //   showToast(isFavorite ? "remove" : "add", "favorites");

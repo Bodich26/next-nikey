@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Container } from "@/shared";
+import { buildCatalogUrl, Container } from "@/shared";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 import { useScrollHeader } from "../model/use-scroll-header";
 import { UserDropdown } from "@/entities";
@@ -103,13 +103,17 @@ export const Header = () => {
 
           <NavbarToggle />
           <NavbarCollapse>
-            <NavbarLink href={`/catalog`}>New</NavbarLink>
-            <NavbarLink as={Link} href={`/catalog`}>
+            <NavbarLink href={buildCatalogUrl({ sort: "new" })}>New</NavbarLink>
+            <NavbarLink as={Link} href={buildCatalogUrl({ gender: "men" })}>
               Men
             </NavbarLink>
-            <NavbarLink href={`/catalog`}>Women</NavbarLink>
-            <NavbarLink href={`/catalog`}>Kids</NavbarLink>
-            <NavbarLink href="#">About us</NavbarLink>
+            <NavbarLink href={buildCatalogUrl({ gender: "women" })}>
+              Women
+            </NavbarLink>
+            <NavbarLink href={buildCatalogUrl({ age: "kids" })}>
+              Kids
+            </NavbarLink>
+            <NavbarLink href="/about">About us</NavbarLink>
             <div className="lg:ml-16 flex items-center gap-5 max-md:justify-end max-md:mt-7">
               <SearchDrawer />
               <FavoritesDrawer />

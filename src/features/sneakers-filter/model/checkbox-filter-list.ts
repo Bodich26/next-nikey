@@ -23,9 +23,9 @@ const checkboxCollection = [
     title: "Collection",
     name: "collection",
     options: [
-      { id: "summer", label: "Summer" },
-      { id: "moon", label: "Moon" },
-      { id: "street", label: "Street" },
+      { id: "Summer", label: "Summer" },
+      { id: "Moon", label: "Moon" },
+      { id: "Street", label: "Street" },
     ],
   },
 ];

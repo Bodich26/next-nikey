@@ -8,15 +8,9 @@ export const sneakersFilterApi = createApi({
   }),
   tagTypes: ["SneakersFilter"],
   endpoints: (builder) => ({
-    getSneakersFilter: builder.query<SneakersFilterRes, Record<string, string>>(
-      {
-        query: (params) => {
-          const searchParams = new URLSearchParams(params);
-          return `/sneakers?${searchParams.toString()}`;
-        },
-        providesTags: ["SneakersFilter"],
-      }
-    ),
+    getSneakersFilter: builder.query<SneakersFilterRes, string>({
+      query: (params) => `/sneakers?${params}`,
+    }),
   }),
 });
 

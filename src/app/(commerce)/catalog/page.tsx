@@ -2,10 +2,7 @@ import { getCatalogSlider, SneakersFilterList } from "@/features";
 
 import { Container, SectionTitles, SliderBanners } from "@/shared";
 
-export default async function Catalog(props: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const searchParams = await props.searchParams;
+export default async function Catalog() {
   const { catalogSlider, error: catalogSliderError } = await getCatalogSlider();
 
   return (
@@ -23,7 +20,7 @@ export default async function Catalog(props: {
       <section className="mt-20 margins-xs">
         <Container>
           <SectionTitles title={"Sneakers"} as={"h3"} align={"center"} />
-          <SneakersFilterList searchParams={searchParams} />
+          <SneakersFilterList />
         </Container>
       </section>
     </>

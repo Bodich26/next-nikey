@@ -2,20 +2,109 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
-import { Prisma } from "@prisma/client";
+import { $Enums, Prisma } from "@prisma/client";
+import {
+  mapModelFilterToName,
+  parseEnumArray,
+  parseStringArray,
+} from "@/shared";
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
 
+    const searchInput = searchParams.get("search") || "";
     const discount = searchParams.get("discount") || "";
+    const purposeList = parseEnumArray<$Enums.PurposeType>(
+      searchParams.get("purpose"),
+      ["LIFESTYLE", "RUNNING", "TRAINING"]
+    );
+    const genderList = parseEnumArray<$Enums.Gender>(
+      searchParams.get("gender"),
+      ["MEN", "WOMEN", "UNISEX"]
+    );
+    const ageList = parseEnumArray<$Enums.AgeCategory>(
+      searchParams.get("age"),
+      ["ADULT", "KIDS"]
+    );
+    const collectionList = parseStringArray(searchParams.get("collection"));
+    const modelFilters = parseStringArray(searchParams.get("model"));
+
+    const sizeParam = searchParams.get("size") || "";
+    const sizeList = sizeParam
+      .split(",")
+      .map((v) => parseFloat(v))
+      .filter((v) => !isNaN(v));
+
+    const sortParam = searchParams.get("sort");
 
     const filters: Prisma.SneakerWhereInput = {};
+
+    if (searchInput) {
+      filters.model = {
+        contains: searchInput,
+        mode: "insensitive",
+      };
+    }
 
     if (discount === "sales") {
       filters.variants = {
         some: {
           discount: { gt: 0 },
+        },
+      };
+    }
+
+    if (purposeList.length > 0) {
+      filters.purposes = {
+        some: {
+          purpose: { in: purposeList },
+        },
+      };
+    }
+
+    if (collectionList.length > 0) {
+      filters.collection = {
+        is: {
+          slug: { in: collectionList },
+        },
+      };
+    }
+
+    if (modelFilters.length > 0) {
+      filters.OR = modelFilters.map((model) => ({
+        model: {
+          contains: mapModelFilterToName(model),
+          mode: "insensitive",
+        },
+      }));
+    }
+
+    if (genderList.length > 0) {
+      filters.gender = { in: genderList };
+    }
+
+    if (ageList.length > 0) {
+      filters.ageCategory = { in: ageList };
+    }
+
+    if (sizeList.length > 0) {
+      filters.variants = {
+        some: {
+          AND: [
+            discount === "sales" ? { discount: { gt: 0 } } : {},
+            sizeList.length > 0
+              ? {
+                  sizes: {
+                    some: {
+                      size: {
+                        value: { in: sizeList },
+                      },
+                    },
+                  },
+                }
+              : {},
+          ],
         },
       };
     }
@@ -44,9 +133,7 @@ export async function GET(req: NextRequest) {
           },
         },
       },
-      orderBy: {
-        views: "desc",
-      },
+      orderBy: sortParam === "new" ? { createdAt: "desc" } : { views: "desc" },
     });
 
     if (!sneakers || sneakers.length === 0) {

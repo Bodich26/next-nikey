@@ -8,7 +8,7 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/pagination";
 import { CollectionWithSneakers } from "../model/type-collection";
-import { ShowErrors } from "@/shared";
+import { buildCatalogUrl, ShowErrors } from "@/shared";
 
 type CollectionWithSneakersProps = {
   collection: CollectionWithSneakers;
@@ -20,7 +20,7 @@ export const CollectionSlider = ({
   showError,
 }: CollectionWithSneakersProps) => {
   if (!collection) {
-    return showError ? <ShowErrors error={showError} /> : null;
+    return showError ? <ShowErrors error={showError} type={"full"} /> : null;
   }
 
   return (
@@ -37,6 +37,7 @@ export const CollectionSlider = ({
         </p>
         <div className="flex justify-center sm:justify-start mt-9">
           <Button
+            href={buildCatalogUrl({ collection: collection.slug })}
             className="uppercase w-[225px] cursor-pointer transition-colors duration-300"
             size="lg"
           >

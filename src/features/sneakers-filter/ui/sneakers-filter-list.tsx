@@ -16,7 +16,7 @@ import {
   checkboxSneakersModel,
 } from "../model/checkbox-filter-list";
 import { SneakersCheckboxGroup } from "./sneakers-checkbox-group";
-import { SearchParams } from "../model/type-sneakers-filter";
+import { useGetSearchParams } from "../model/use-get-search-params";
 
 const allGroups = [
   ...checkboxDiscount,
@@ -28,12 +28,9 @@ const allGroups = [
   ...checkboxSize,
 ];
 
-interface SneakersFilterListProps {
-  searchParams: SearchParams;
-}
-
-export const SneakersFilterList = (searchParams: SneakersFilterListProps) => {
-  const { sneakers, isLoading, isError } = useGetSneakersFilter(searchParams);
+export const SneakersFilterList = () => {
+  const { queryString } = useGetSearchParams();
+  const { sneakers, isLoading, isError } = useGetSneakersFilter(queryString);
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
 
   return (
@@ -110,7 +107,7 @@ export const SneakersFilterList = (searchParams: SneakersFilterListProps) => {
             </Select>
           </div>
         </div>
-        <div className="grid gap-8 grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] mt-5">
+        <div className="grid gap-8 grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] mt-5 ">
           {isLoading && (
             <>
               {Array.from({ length: 12 }).map((_, index) => (
@@ -129,7 +126,7 @@ export const SneakersFilterList = (searchParams: SneakersFilterListProps) => {
             ))}
 
           {!isLoading && !isError && sneakers.length === 0 && (
-            <ShowNotify notify="Sneakers is not define" />
+            <ShowNotify notify="Not a Sneakers" />
           )}
         </div>
       </div>
