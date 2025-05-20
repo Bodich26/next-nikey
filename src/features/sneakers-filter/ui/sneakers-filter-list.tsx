@@ -1,6 +1,6 @@
 "use client";
 
-import { ShowErrors, ShowNotify, SkeletonSneakersItem } from "@/shared";
+import { ShowErrors, SkeletonSneakersItem } from "@/shared";
 import { useQueryState } from "nuqs";
 import { useGetSneakersFilter } from "../model/use-get-sneakers-filter";
 import { Select, TextInput } from "flowbite-react";
@@ -32,6 +32,12 @@ export const SneakersFilterList = () => {
   const { queryString } = useGetSearchParams();
   const { sneakers, isLoading, isError } = useGetSneakersFilter(queryString);
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
+  const [sortByPrice, setSortByPrice] = useQueryState("sortByPrice", {
+    defaultValue: "",
+  });
+  const [sortByPopular, setSortByPopular] = useQueryState("sortByPopular", {
+    defaultValue: "",
+  });
 
   return (
     <div className="flex justify-between items-start gap-8 mt-8">
@@ -76,6 +82,8 @@ export const SneakersFilterList = () => {
             <Select
               id="byPrice"
               required
+              value={sortByPrice}
+              onChange={(e) => setSortByPrice(e.target.value || "")}
               theme={{
                 base: "w-[172px]",
                 field: {
@@ -86,12 +94,15 @@ export const SneakersFilterList = () => {
                 },
               }}
             >
-              <option>Cheap ones first</option>
-              <option>Dear ones first</option>
+              <option value="">Sort price</option>
+              <option value="cheap">Cheap ones first</option>
+              <option value="dear">Dear ones first</option>
             </Select>
             <Select
               id="sortRating"
+              value={sortByPopular}
               required
+              onChange={(e) => setSortByPopular(e.target.value || "")}
               theme={{
                 base: "w-[172px]",
                 field: {
@@ -102,8 +113,9 @@ export const SneakersFilterList = () => {
                 },
               }}
             >
-              <option>More popular first</option>
-              <option>Less popular first</option>
+              <option value="">Sort popular</option>
+              <option value="more">More popular first</option>
+              <option value="less">Less popular first</option>
             </Select>
           </div>
         </div>
@@ -126,7 +138,7 @@ export const SneakersFilterList = () => {
             ))}
 
           {!isLoading && !isError && sneakers.length === 0 && (
-            <ShowNotify notify="Not a Sneakers" />
+            <ShowErrors error="Sneakers not found" type="empty" />
           )}
         </div>
       </div>

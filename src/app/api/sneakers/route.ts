@@ -38,6 +38,9 @@ export async function GET(req: NextRequest) {
 
     const sortParam = searchParams.get("sort");
 
+    const sortByPrice = searchParams.get("sortByPrice");
+    const sortByPopular = searchParams.get("sortByPopular");
+
     const filters: Prisma.SneakerWhereInput = {};
 
     if (searchInput) {
@@ -121,10 +124,8 @@ export async function GET(req: NextRequest) {
           include: {
             sizes: true,
           },
-          orderBy: {
-            createdAt: "asc",
-          },
-
+          orderBy:
+            sortByPrice === "cheap" ? { price: "desc" } : { price: "asc" },
           take: 1,
         },
         purposes: {
@@ -133,7 +134,11 @@ export async function GET(req: NextRequest) {
           },
         },
       },
-      orderBy: sortParam === "new" ? { createdAt: "desc" } : { views: "desc" },
+      orderBy: sortByPopular
+        ? { views: sortByPopular === "more" ? "desc" : "asc" }
+        : sortParam === "new"
+        ? { createdAt: "desc" }
+        : { createdAt: "desc" },
     });
 
     if (!sneakers || sneakers.length === 0) {
