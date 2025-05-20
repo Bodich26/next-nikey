@@ -5,7 +5,8 @@ export const useSelectedCheckboxValues = (name: string) => {
     defaultValue: [],
     parse: (value: string | null) =>
       value && value.length > 0 ? value.split(",") : [],
-    serialize: (value: string[]) => (value.length > 0 ? value.join(",") : ""),
+    serialize: (value: string[]) =>
+      value.length > 0 ? value.join(",") : (null as unknown as string),
   });
 
   const handleCheckboxChange = (id: string, checked: boolean) => {

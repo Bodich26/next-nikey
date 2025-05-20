@@ -77,7 +77,7 @@ export const SneakersFilterList = () => {
       </div>
 
       <div className="flex-1">
-        <div className="flex justify-between items-center text-indigo-900 font-medium text-base leading-none">
+        <div className="flex justify-between items-center text-indigo-900 font-medium text-base leading-none gap-2">
           <p className="inline-flex gap-2 items-center">
             Result: {isLoading ? "loading... " : sneakers.length}
             {hasActiveFilters && (
