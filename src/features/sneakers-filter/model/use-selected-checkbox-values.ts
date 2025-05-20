@@ -18,5 +18,5 @@ export const useSelectedCheckboxValues = (name: string) => {
   };
 
   const isChecked = (id: string) => selectedValues?.includes(id);
-  return { handleCheckboxChange, isChecked };
+  return { handleCheckboxChange, isChecked, setSelectedValues };
 };

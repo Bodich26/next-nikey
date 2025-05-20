@@ -19,6 +19,7 @@ export const SneakersCheckboxGroup = ({
       <legend className="font-medium text-xl text-indigo-900 mb-3">
         {title}
       </legend>
+
       {options.map((option) => {
         const hidden = !showAll && options.indexOf(option) >= 3;
         return (

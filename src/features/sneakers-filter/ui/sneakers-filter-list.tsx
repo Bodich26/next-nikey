@@ -17,6 +17,7 @@ import {
 } from "../model/checkbox-filter-list";
 import { SneakersCheckboxGroup } from "./sneakers-checkbox-group";
 import { useGetSearchParams } from "../model/use-get-search-params";
+import { useResetFilter } from "../model/use-reset-filters";
 
 const allGroups = [
   ...checkboxDiscount,
@@ -38,6 +39,7 @@ export const SneakersFilterList = () => {
   const [sortByPopular, setSortByPopular] = useQueryState("sortByPopular", {
     defaultValue: "",
   });
+  const { resetFilters, hasActiveFilters } = useResetFilter();
 
   return (
     <div className="flex justify-between items-start gap-8 mt-8">
@@ -76,7 +78,18 @@ export const SneakersFilterList = () => {
 
       <div className="flex-1">
         <div className="flex justify-between items-center text-indigo-900 font-medium text-base leading-none">
-          <span>Result: {isLoading ? "loading..." : sneakers.length}</span>
+          <p className="inline-flex gap-2 items-center">
+            Result: {isLoading ? "loading... " : sneakers.length}
+            {hasActiveFilters && (
+              <span
+                onClick={() => resetFilters()}
+                className="text-indigo-600 text-sm underline ml-auto cursor-pointer"
+              >
+                reset filters
+              </span>
+            )}
+          </p>
+
           <div className="flex justify-between items-center gap-3">
             <span className="mr-1 text-indigo-900">Sorting:</span>
             <Select
