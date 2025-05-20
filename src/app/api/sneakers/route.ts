@@ -37,9 +37,11 @@ export async function GET(req: NextRequest) {
       .filter((v) => !isNaN(v));
 
     const sortParam = searchParams.get("sort");
-
     const sortByPrice = searchParams.get("sortByPrice");
     const sortByPopular = searchParams.get("sortByPopular");
+
+    const offset = parseInt(searchParams.get("offset") || "0", 10);
+    const limit = 12;
 
     const filters: Prisma.SneakerWhereInput = {};
 
@@ -114,6 +116,8 @@ export async function GET(req: NextRequest) {
 
     const sneakers = await prisma.sneaker.findMany({
       where: filters,
+      skip: offset,
+      take: limit,
       include: {
         collection: {
           select: {
@@ -141,6 +145,8 @@ export async function GET(req: NextRequest) {
         : { createdAt: "desc" },
     });
 
+    const totalCount = await prisma.sneaker.count({ where: filters });
+
     if (!sneakers || sneakers.length === 0) {
       return NextResponse.json({
         error: "No sneakers found",
@@ -149,7 +155,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ sneakers, success: true });
+    return NextResponse.json({ sneakers, success: true, totalCount });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {

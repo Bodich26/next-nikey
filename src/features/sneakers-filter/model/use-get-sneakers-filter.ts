@@ -6,6 +6,7 @@ export const useGetSneakersFilter = (paramsString: string) => {
   return {
     sneakers: data?.sneakers || [],
     isLoading,
+    totalCount: data?.totalCount || 0,
     isError: error && "Server Error",
   };
 };

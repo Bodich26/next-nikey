@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
-import { ShowErrors, SkeletonSneakersItem, useDebounce } from "@/shared";
+import {
+  PaginationControl,
+  ShowErrors,
+  SkeletonSneakersItem,
+  useDebounce,
+} from "@/shared";
 import { useQueryState } from "nuqs";
 import { useGetSneakersFilter } from "../model/use-get-sneakers-filter";
 import { Select, TextInput } from "flowbite-react";
@@ -31,7 +36,8 @@ const allGroups = [
 
 export const SneakersFilterList = () => {
   const { queryString } = useGetSearchParams();
-  const { sneakers, isLoading, isError } = useGetSneakersFilter(queryString);
+  const { sneakers, isLoading, isError, totalCount } =
+    useGetSneakersFilter(queryString);
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
   const [searchValue, setSearchValue] = React.useState(search);
 
@@ -162,6 +168,7 @@ export const SneakersFilterList = () => {
             <ShowErrors error="Sneakers not found" type="empty" />
           )}
         </div>
+        <PaginationControl totalCount={totalCount} />
       </div>
     </div>
   );

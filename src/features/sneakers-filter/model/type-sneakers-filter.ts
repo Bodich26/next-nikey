@@ -21,6 +21,7 @@ type SneakersFilterRes = {
   sneakers: CartItem[];
   success?: boolean;
   error?: string;
+  totalCount?: number;
 };
 
 type Option = {

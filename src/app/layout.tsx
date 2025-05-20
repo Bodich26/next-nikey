@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -24,9 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter} antialiased`}>
-          <NuqsAdapter>
-            <StoreProvider>{children}</StoreProvider>
-          </NuqsAdapter>
+          <StoreProvider>{children}</StoreProvider>
         </body>
       </html>
     </ClerkProvider>
