@@ -8,5 +8,12 @@ export const useResetFilter = () => {
     const baseUrl = window.location.pathname;
     window.history.replaceState({}, "", baseUrl);
   };
-  return { resetFilters, hasActiveFilters };
+
+  const handleResetFiltersAndSearch = (
+    setSearchValue: (value: string) => void
+  ) => {
+    resetFilters();
+    setSearchValue("");
+  };
+  return { hasActiveFilters, handleResetFiltersAndSearch };
 };

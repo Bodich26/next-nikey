@@ -1,6 +1,6 @@
 "use client";
-
-import { ShowErrors, SkeletonSneakersItem } from "@/shared";
+import React from "react";
+import { ShowErrors, SkeletonSneakersItem, useDebounce } from "@/shared";
 import { useQueryState } from "nuqs";
 import { useGetSneakersFilter } from "../model/use-get-sneakers-filter";
 import { Select, TextInput } from "flowbite-react";
@@ -33,13 +33,21 @@ export const SneakersFilterList = () => {
   const { queryString } = useGetSearchParams();
   const { sneakers, isLoading, isError } = useGetSneakersFilter(queryString);
   const [search, setSearch] = useQueryState("search", { defaultValue: "" });
+  const [searchValue, setSearchValue] = React.useState(search);
+
+  const debouncedSearch = useDebounce(searchValue, 800);
+
   const [sortByPrice, setSortByPrice] = useQueryState("sortByPrice", {
     defaultValue: "",
   });
   const [sortByPopular, setSortByPopular] = useQueryState("sortByPopular", {
     defaultValue: "",
   });
-  const { resetFilters, hasActiveFilters } = useResetFilter();
+  const { handleResetFiltersAndSearch, hasActiveFilters } = useResetFilter();
+
+  React.useEffect(() => {
+    setSearch(debouncedSearch || "");
+  }, [debouncedSearch, setSearch]);
 
   return (
     <div className="flex justify-between items-start gap-8 mt-8">
@@ -49,8 +57,8 @@ export const SneakersFilterList = () => {
           type="text"
           sizing="sm"
           placeholder="|Quick search for anyt..."
-          onChange={(e) => setSearch(e.target.value || null)}
-          value={search}
+          onChange={(e) => setSearchValue(e.target.value)}
+          value={searchValue}
           icon={Search}
           theme={{
             base: "",
@@ -82,7 +90,7 @@ export const SneakersFilterList = () => {
             Result: {isLoading ? "loading... " : sneakers.length}
             {hasActiveFilters && (
               <span
-                onClick={() => resetFilters()}
+                onClick={() => handleResetFiltersAndSearch(setSearchValue)}
                 className="text-indigo-600 text-sm underline ml-auto cursor-pointer"
               >
                 reset filters
