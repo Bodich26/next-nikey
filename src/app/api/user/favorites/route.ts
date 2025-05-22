@@ -23,9 +23,7 @@ export async function GET(req: NextRequest) {
     }
 
     const userFavorites = await prisma.favorites.findFirst({
-      where: {
-        OR: [{ userId: user.id }, { token }],
-      },
+      where: { OR: [{ userId: user.id }, { token }] },
       include: {
         favoriteItems: {
           include: {
@@ -94,6 +92,20 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const existingSneakers = await prisma.favoritesOnProducts.findFirst({
+      where: {
+        favoritesId: userFavorites.id,
+        sneakerId,
+      },
+    });
+
+    if (existingSneakers) {
+      return NextResponse.json({
+        success: false,
+        error: "Sneaker is already in the favorites",
+      });
+    }
+
     await prisma.favoritesOnProducts.create({
       data: {
         favoritesId: userFavorites.id,
@@ -107,7 +119,10 @@ export async function POST(req: NextRequest) {
     });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" });
+    return NextResponse.json({
+      error: "Internal Server Error",
+      success: false,
+    });
   }
 }
 
