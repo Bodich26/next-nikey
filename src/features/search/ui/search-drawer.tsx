@@ -16,8 +16,6 @@ export const SearchDrawer = () => {
 
   const handleClose = () => setIsOpen(false);
 
-  console.log(sneakers);
-
   return (
     <>
       <Search

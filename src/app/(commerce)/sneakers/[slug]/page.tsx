@@ -14,9 +14,9 @@ import {
 } from "@/shared";
 
 type SneakerSlug = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export default async function Sneaker({ params }: SneakerSlug) {

@@ -1,6 +1,6 @@
 import { getCatalogSlider, SneakersFilterList } from "@/features";
-
 import { Container, SectionTitles, SliderBanners } from "@/shared";
+import { Suspense } from "react";
 
 export default async function Catalog() {
   const { catalogSlider, error: catalogSliderError } = await getCatalogSlider();
@@ -20,7 +20,9 @@ export default async function Catalog() {
       <section className="mt-20 margins-xs">
         <Container>
           <SectionTitles title={"Sneakers"} as={"h3"} align={"center"} />
-          <SneakersFilterList />
+          <Suspense fallback={<div>Loading filters...</div>}>
+            <SneakersFilterList />
+          </Suspense>
         </Container>
       </section>
     </>

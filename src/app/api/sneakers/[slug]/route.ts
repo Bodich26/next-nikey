@@ -4,9 +4,9 @@ import { prisma } from "@/../backend/prisma/prisma-client";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = await params;
+  const { slug } = await context.params;
   try {
     const sneakerBySlug = await prisma.sneaker.findUnique({
       where: { slug },

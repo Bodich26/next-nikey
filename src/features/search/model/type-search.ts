@@ -1,11 +1,9 @@
 import { ColorVariant, Sneaker } from "@prisma/client";
 
-type SearchSneakers = {
-  sneaker: Sneaker & {
-    variants: (ColorVariant & {
-      images: { url: string }[];
-    })[];
-  };
+type SearchSneakers = Sneaker & {
+  variants: (ColorVariant & {
+    images: { url: string }[];
+  })[];
 };
 
 type SearchSneakersRes = {
@@ -14,4 +12,4 @@ type SearchSneakersRes = {
   error?: string;
 };
 
-export type { SearchSneakersRes };
+export type { SearchSneakersRes, SearchSneakers };

@@ -1,11 +1,15 @@
 import { ArrowRightIcon, Badge, Button } from "flowbite-react";
 import Image from "next/image";
-import { SearchSneakers } from "../model/type-sneakers";
 
 import clsx from "clsx";
 import { SneakersPrice } from "@/shared";
+import { SearchSneakers } from "../model/type-sneakers";
 
-export const SneakersSearchItem = ({ sneaker }: SearchSneakers) => {
+export const SneakersSearchItem = ({
+  sneaker,
+}: {
+  sneaker: SearchSneakers;
+}) => {
   const firstVariant = sneaker.variants[0];
   const hasDiscount = firstVariant?.discount && firstVariant.discount > 0;
 
