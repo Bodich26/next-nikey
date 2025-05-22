@@ -7,7 +7,7 @@ type Props = {
 };
 export const Banner = ({ imgUrl, children }: Props) => {
   return (
-    <section className="relative mt-24 bg-[url('/bg-banner.jpg')] bg-cover bg-center bg-no-repeat">
+    <section className="relative mt-24 bg-[url('/bg-banner.jpg')] bg-cover bg-center bg-no-repeat margins-xs">
       <div className="flex">
         <div className="relative w-[45%] max-md:hidden">
           <Image

@@ -49,6 +49,7 @@ export const SneakersFilterList = () => {
   const [sortByPopular, setSortByPopular] = useQueryState("sortByPopular", {
     defaultValue: "",
   });
+
   const { handleResetFiltersAndSearch, hasActiveFilters } = useResetFilter();
 
   React.useEffect(() => {
@@ -168,7 +169,11 @@ export const SneakersFilterList = () => {
             <ShowErrors error="Sneakers not found" type="empty" />
           )}
         </div>
-        <PaginationControl totalCount={totalCount} />
+        <PaginationControl
+          totalCount={totalCount}
+          limit={12}
+          paramName="offset"
+        />
       </div>
     </div>
   );

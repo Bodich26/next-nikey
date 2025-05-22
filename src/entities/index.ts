@@ -12,3 +12,5 @@ export {
 export { type SneakersWithVariants } from "./sneakers";
 
 export { UserDropdown } from "./user";
+
+export { ContactList } from "./contact";
