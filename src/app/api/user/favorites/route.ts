@@ -94,8 +94,8 @@ export async function POST(req: NextRequest) {
 
     const existingSneakers = await prisma.favoritesOnProducts.findFirst({
       where: {
+        favoritesId: userFavorites.id,
         sneakerId,
-        favorites: { userId: user.id },
       },
     });
 
