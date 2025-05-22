@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
   try {
     const { sneakerId } = await req.json();
 
-    let userFavorites = await prisma.favorites.findUnique({
+    let userFavorites = await prisma.favorites.findFirst({
       where: { userId: user.id },
     });
 
