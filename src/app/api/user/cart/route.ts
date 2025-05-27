@@ -3,12 +3,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
 import { auth } from "@clerk/nextjs/server";
+import { getGuestToken } from "@/shared";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const currentUser = auth();
     const clerkUserId = (await currentUser).userId;
-    const token = req.cookies.get("cartToken")?.value;
+    const token = await getGuestToken();
 
     if (!clerkUserId && !token) {
       return NextResponse.json({
@@ -18,20 +19,24 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { clerkId: clerkUserId! },
-    });
+    let user = null;
 
-    if (!user) {
-      return NextResponse.json({
-        cartItems: [],
-        totalAmount: 0,
-        success: true,
+    if (clerkUserId) {
+      user = await prisma.user.findUnique({
+        where: { clerkId: clerkUserId },
       });
+
+      if (!user && !token) {
+        return NextResponse.json({
+          cartItems: [],
+          totalAmount: 0,
+          success: true,
+        });
+      }
     }
 
     const userCart = await prisma.cart.findFirst({
-      where: { OR: [{ userId: user.id }, { token }] },
+      where: { OR: [{ userId: user?.id }, { token }] },
       include: {
         cartItems: {
           include: {
@@ -77,8 +82,9 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const currentUser = auth();
   const clerkUserId = (await currentUser).userId;
+  const token = await getGuestToken();
 
-  if (!clerkUserId) {
+  if (!clerkUserId && !token) {
     return NextResponse.json({
       cartItems: [],
       totalAmount: 0,
@@ -86,16 +92,20 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: clerkUserId! },
-  });
+  let user = null;
 
-  if (!user) {
-    return NextResponse.json({
-      cartItems: [],
-      totalAmount: 0,
-      success: true,
+  if (clerkUserId) {
+    user = await prisma.user.findUnique({
+      where: { clerkId: clerkUserId },
     });
+
+    if (!user && !token) {
+      return NextResponse.json({
+        cartItems: [],
+        totalAmount: 0,
+        success: true,
+      });
+    }
   }
 
   try {
@@ -119,13 +129,18 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    let userCart = await prisma.cart.findUnique({
-      where: { userId: user.id },
+    let userCart = await prisma.cart.findFirst({
+      where: {
+        OR: [{ userId: user?.id }, { token }],
+      },
     });
 
     if (!userCart) {
+      const expiration = new Date();
+      expiration.setHours(expiration.getHours() + 24);
+
       userCart = await prisma.cart.create({
-        data: { userId: user.id },
+        data: user ? { userId: user.id } : { token, expiresAt: expiration },
       });
     }
 
@@ -173,8 +188,9 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   const currentUser = auth();
   const clerkUserId = (await currentUser).userId;
+  const token = await getGuestToken();
 
-  if (!clerkUserId) {
+  if (!clerkUserId && !token) {
     return NextResponse.json({
       cartItems: [],
       totalAmount: 0,
@@ -182,23 +198,29 @@ export async function DELETE(req: NextRequest) {
     });
   }
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: clerkUserId! },
-  });
+  let user = null;
 
-  if (!user) {
-    return NextResponse.json({
-      cartItems: [],
-      totalAmount: 0,
-      success: true,
+  if (clerkUserId) {
+    user = await prisma.user.findUnique({
+      where: { clerkId: clerkUserId },
     });
+
+    if (!user && !token) {
+      return NextResponse.json({
+        cartItems: [],
+        totalAmount: 0,
+        success: true,
+      });
+    }
   }
 
   try {
     const { sneakerId, variantId, sizeId } = await req.json();
 
-    const userCart = await prisma.cart.findUnique({
-      where: { userId: user.id },
+    const userCart = await prisma.cart.findFirst({
+      where: {
+        OR: [{ userId: user?.id }, { token }],
+      },
     });
 
     if (!userCart) {

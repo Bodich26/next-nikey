@@ -6,4 +6,6 @@ export {
   parseStringArray,
   mapModelFilterToName,
   buildCatalogUrl,
+  getGuestToken,
+  cleanExpiredGuestToken,
 } from "./utils";

@@ -156,6 +156,8 @@ model Cart {
   updatedAt   DateTime         @updatedAt
   user        User?            @relation(fields: [userId], references: [id])
   cartItems   CartOnSneakers[]
+
+  @@index([token, createdAt])
 }
 
 model CartOnSneakers {
@@ -167,7 +169,7 @@ model CartOnSneakers {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  cart         Cart         @relation(fields: [cartId], references: [id])
+  cart         Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
   sneaker      Sneaker      @relation(fields: [sneakerId], references: [id])
   colorVariant ColorVariant @relation(fields: [colorVariantId], references: [id])
   size         Size         @relation(fields: [sizeId], references: [id])
@@ -184,6 +186,8 @@ model Favorites {
   updatedAt     DateTime              @updatedAt
   user          User?                 @relation(fields: [userId], references: [id])
   favoriteItems FavoritesOnProducts[]
+
+  @@index([token, createdAt])
 }
 
 model FavoritesOnProducts {
@@ -191,7 +195,7 @@ model FavoritesOnProducts {
   sneakerId   String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  favorites   Favorites @relation(fields: [favoritesId], references: [id])
+  favorites   Favorites @relation(fields: [favoritesId], references: [id], onDelete: Cascade)
   sneaker     Sneaker   @relation(fields: [sneakerId], references: [id])
 
   @@id([sneakerId, favoritesId])
