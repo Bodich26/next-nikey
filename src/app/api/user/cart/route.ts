@@ -2,37 +2,18 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
-import { auth } from "@clerk/nextjs/server";
-import { getGuestToken } from "@/shared";
+import { getSessionUser } from "@/shared";
 
 export async function GET() {
   try {
-    const currentUser = auth();
-    const clerkUserId = (await currentUser).userId;
-    const token = await getGuestToken();
+    const { user, token } = await getSessionUser();
 
-    if (!clerkUserId && !token) {
+    if (!user && !token) {
       return NextResponse.json({
         cartItems: [],
         totalAmount: 0,
         success: true,
       });
-    }
-
-    let user = null;
-
-    if (clerkUserId) {
-      user = await prisma.user.findUnique({
-        where: { clerkId: clerkUserId },
-      });
-
-      if (!user && !token) {
-        return NextResponse.json({
-          cartItems: [],
-          totalAmount: 0,
-          success: true,
-        });
-      }
     }
 
     const userCart = await prisma.cart.findFirst({
@@ -80,24 +61,8 @@ export async function GET() {
 
 //Add to cart
 export async function POST(req: NextRequest) {
-  const currentUser = auth();
-  const clerkUserId = (await currentUser).userId;
-  const token = await getGuestToken();
-
-  if (!clerkUserId && !token) {
-    return NextResponse.json({
-      cartItems: [],
-      totalAmount: 0,
-      success: true,
-    });
-  }
-
-  let user = null;
-
-  if (clerkUserId) {
-    user = await prisma.user.findUnique({
-      where: { clerkId: clerkUserId },
-    });
+  try {
+    const { user, token } = await getSessionUser();
 
     if (!user && !token) {
       return NextResponse.json({
@@ -106,9 +71,7 @@ export async function POST(req: NextRequest) {
         success: true,
       });
     }
-  }
 
-  try {
     const { sneakerId, variantId, sizeId } = await req.json();
 
     const colorVariantSize = await prisma.colorVariantSize.findFirst({
@@ -186,24 +149,8 @@ export async function POST(req: NextRequest) {
 
 //Remove from cart
 export async function DELETE(req: NextRequest) {
-  const currentUser = auth();
-  const clerkUserId = (await currentUser).userId;
-  const token = await getGuestToken();
-
-  if (!clerkUserId && !token) {
-    return NextResponse.json({
-      cartItems: [],
-      totalAmount: 0,
-      success: true,
-    });
-  }
-
-  let user = null;
-
-  if (clerkUserId) {
-    user = await prisma.user.findUnique({
-      where: { clerkId: clerkUserId },
-    });
+  try {
+    const { user, token } = await getSessionUser();
 
     if (!user && !token) {
       return NextResponse.json({
@@ -212,9 +159,7 @@ export async function DELETE(req: NextRequest) {
         success: true,
       });
     }
-  }
 
-  try {
     const { sneakerId, variantId, sizeId } = await req.json();
 
     const userCart = await prisma.cart.findFirst({

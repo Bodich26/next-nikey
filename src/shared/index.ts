@@ -8,4 +8,7 @@ export {
   buildCatalogUrl,
   getGuestToken,
   cleanExpiredGuestToken,
+  extendGuestSession,
+  getSessionUser,
+  migrateGuestDataToUser,
 } from "./utils";

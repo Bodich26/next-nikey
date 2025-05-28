@@ -3,3 +3,6 @@ export { mapModelFilterToName } from "./map-model-name-filters";
 export { buildCatalogUrl } from "./build-catalog-url";
 export { getGuestToken } from "./get-guest-token";
 export { cleanExpiredGuestToken } from "./clean-expired-guest-token";
+export { extendGuestSession } from "./extend-guest-session";
+export { getSessionUser } from "./get-session-user";
+export { migrateGuestDataToUser } from "./migrate-guest-data-to-user";

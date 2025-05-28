@@ -1,30 +1,15 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
-import { getGuestToken } from "@/shared";
+import { getSessionUser } from "@/shared";
 
 export async function GET() {
   try {
-    const currentUser = auth();
-    const clerkUserId = (await currentUser).userId;
-    const token = await getGuestToken();
+    const { user, token } = await getSessionUser();
 
-    if (!clerkUserId && !token) {
+    if (!user && !token) {
       return NextResponse.json({ favoriteItems: [], success: true });
-    }
-
-    let user = null;
-
-    if (clerkUserId) {
-      user = await prisma.user.findUnique({
-        where: { clerkId: clerkUserId },
-      });
-
-      if (!user && !token) {
-        return NextResponse.json({ favoriteItems: [], success: true });
-      }
     }
 
     const userFavorites = await prisma.favorites.findFirst({
@@ -71,27 +56,13 @@ export async function GET() {
 
 // Add Sneakers in favorites
 export async function POST(req: NextRequest) {
-  const currentUser = auth();
-  const clerkUserId = (await currentUser).userId;
-  const token = await getGuestToken();
-
-  if (!clerkUserId && !token) {
-    return NextResponse.json({ favoriteItems: [], success: true });
-  }
-
-  let user = null;
-
-  if (clerkUserId) {
-    user = await prisma.user.findUnique({
-      where: { clerkId: clerkUserId },
-    });
+  try {
+    const { user, token } = await getSessionUser();
 
     if (!user && !token) {
       return NextResponse.json({ favoriteItems: [], success: true });
     }
-  }
 
-  try {
     const { sneakerId } = await req.json();
 
     let userFavorites = await prisma.favorites.findFirst({
@@ -145,27 +116,13 @@ export async function POST(req: NextRequest) {
 
 //Remove sneaker from favorites
 export async function DELETE(req: NextRequest) {
-  const currentUser = auth();
-  const clerkUserId = (await currentUser).userId;
-  const token = await getGuestToken();
-
-  if (!clerkUserId && !token) {
-    return NextResponse.json({ favoriteItems: [], success: true });
-  }
-
-  let user = null;
-
-  if (clerkUserId) {
-    user = await prisma.user.findUnique({
-      where: { clerkId: clerkUserId },
-    });
+  try {
+    const { user, token } = await getSessionUser();
 
     if (!user && !token) {
       return NextResponse.json({ favoriteItems: [], success: true });
     }
-  }
 
-  try {
     const { sneakerId } = await req.json();
 
     await prisma.favoritesOnProducts.deleteMany({
