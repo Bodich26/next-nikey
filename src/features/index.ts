@@ -15,7 +15,16 @@ export { getCatalogSlider } from "./catalog-slider";
 
 export { SneakersFilterList } from "./sneakers-filter";
 
-export { ButtonQuantity, ButtonRemoveOrder } from "./orders";
+export {
+  ButtonQuantity,
+  ButtonRemoveOrder,
+  RecipientDetails,
+  SelectDeliveryAddress,
+  PaymentMethodOrder,
+  SneakersListOrder,
+  TariffsDeliveryOrder,
+  SelectCouponOrder,
+} from "./orders";
 
 //--Get store
 export { favoritesApi, useGetFavoritesQuery } from "./favorites";
