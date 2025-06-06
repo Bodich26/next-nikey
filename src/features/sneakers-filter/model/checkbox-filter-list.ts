@@ -85,7 +85,7 @@ const checkboxSize = [
 ];
 
 const checkboxTheme = {
-  base: "cursor-pointer h-5 w-5 appearance-none rounded border border-gray-300 bg-gray-100 bg-[length:0.55em_0.55em] bg-center bg-no-repeat checked:border-transparent checked:bg-current checked:bg-check-icon focus:outline-none focus:ring-2 focus:ring-offset-2 dark:border-indigo-300 dark:bg-indigo-50 dark:checked:border-transparent dark:checked:bg-current",
+  base: "cursor-pointer min-h-5 min-w-5 appearance-none rounded border border-gray-300 bg-gray-100 bg-[length:0.55em_0.55em] bg-center bg-no-repeat checked:border-transparent checked:bg-current checked:bg-check-icon focus:outline-none focus:ring-2 focus:ring-offset-2 dark:border-indigo-300 dark:bg-indigo-50 dark:checked:border-transparent dark:checked:bg-current",
   color: {
     indigo:
       "text-indigo-700 focus:ring-indigo-700 dark:ring-offset-indigo-700 dark:focus:ring-indigo-700",

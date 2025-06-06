@@ -4,7 +4,7 @@ import clsx from "clsx";
 type PriceProductProps = {
   price: number;
   discount?: number;
-  variant: "main" | "page";
+  variant: "main" | "page" | "default";
 };
 
 export const SneakersPrice = ({
@@ -18,8 +18,12 @@ export const SneakersPrice = ({
   const priceElement = (
     <b
       className={clsx(
-        "font-bold text-xl leading-none",
-        variant === "main" ? "text-indigo-600" : "text-indigo-900 !text-4xl"
+        "font-bold leading-none",
+        variant === "main"
+          ? "text-indigo-600 text-xl"
+          : variant === "default"
+          ? "text-indigo-900 text-xl"
+          : "text-indigo-900 !text-4xl"
       )}
     >
       <PriceFormat price={discountedPrice} />
@@ -29,8 +33,12 @@ export const SneakersPrice = ({
   const oldPriceElement = hasDiscount ? (
     <span
       className={clsx(
-        "font-medium text-base line-through text-indigo-600",
-        variant === "main" ? "text-indigo-600" : "text-indigo-900 !text-2xl "
+        "font-medium line-through",
+        variant === "main"
+          ? "text-indigo-600 text-base"
+          : variant === "default"
+          ? "text-indigo-900 text-base"
+          : "text-indigo-900 !text-2xl"
       )}
     >
       <PriceFormat price={price} />
@@ -53,6 +61,18 @@ export const SneakersPrice = ({
         {oldPriceElement}
         {discount! > 0 && (
           <b className="text-2xl font-bold text-indigo-700">{discount}%</b>
+        )}
+      </p>
+    );
+  }
+
+  if (variant === "default") {
+    return (
+      <p className="inline-flex items-center gap-2">
+        {priceElement}
+        {oldPriceElement}
+        {discount! > 0 && (
+          <b className="text-xl font-bold text-indigo-700">{discount}%</b>
         )}
       </p>
     );

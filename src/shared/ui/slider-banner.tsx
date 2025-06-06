@@ -35,7 +35,7 @@ export const SliderBanners = ({ slide, showError }: SneakerSlideProps) => {
       >
         {slide.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="lg:flex-row flex gap-9 flex-col-reverse justify-between items-start lg:p-4 sm:mb-6 lg:mb-0">
+            <div className="lg:flex-row flex gap-9 flex-col-reverse justify-between items-start lg:p-4 sm:mb-6 lg:mb-0 ">
               <div className="flex flex-col gap-9 justify-between lg:max-w-[648px] md:max-w-full text-center sm:text-start">
                 <div>
                   <h3 className="lg:mt-8 text-4xl sm:text-5xl md:text-6xl font-bold leading-none uppercase text-indigo-50 text-center sm:text-start">

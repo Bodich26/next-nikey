@@ -7,7 +7,7 @@ export default async function Catalog() {
 
   return (
     <>
-      <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
+      <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat min-h-[657px]">
         <Container>
           <div className="pt-20 pb-[100px] sm:pb-[138px]">
             <SliderBanners

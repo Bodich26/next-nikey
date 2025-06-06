@@ -8,7 +8,7 @@ type Props = {
 };
 export const HeroSectionInfo = ({ title, description, imageUrl }: Props) => {
   return (
-    <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
+    <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat min-h-[657px]">
       <Container>
         <div className="pt-20 pb-[100px] sm:pb-[138px]">
           <div className="lg:flex-row flex gap-9 flex-col-reverse justify-between items-start lg:p-4 lg:pt-[41px]  sm:mb-6 lg:mb-0">

@@ -3,6 +3,7 @@ export {
   SneakersCatalogItem,
   SneakersSearchItem,
   SneakersFavoritesItem,
+  SneakersOrderItem,
   SneakersCartItem,
   getSneakersSlug,
   getSneakersSlider,

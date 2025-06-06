@@ -15,6 +15,8 @@ export { getCatalogSlider } from "./catalog-slider";
 
 export { SneakersFilterList } from "./sneakers-filter";
 
+export { ButtonQuantity, ButtonRemoveOrder } from "./orders";
+
 //--Get store
 export { favoritesApi, useGetFavoritesQuery } from "./favorites";
 export { cartApi, useGetCartQuery } from "./cart";

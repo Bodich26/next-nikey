@@ -35,7 +35,11 @@ export const SneakersCheckboxGroup = ({
               }
               theme={checkboxTheme}
             />
-            <Label htmlFor={option.id} theme={labelTheme}>
+            <Label
+              htmlFor={option.id}
+              theme={labelTheme}
+              className="capitalize"
+            >
               {option.label}
             </Label>
           </div>
