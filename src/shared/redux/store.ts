@@ -1,5 +1,7 @@
-import { favoritesApi, cartApi, sneakersFilterApi } from "@/features";
+import { cartApi } from "@/features/cart";
+import { favoritesApi } from "@/features/favorites";
 import { searchSneakersApi } from "@/features/search/api/search-sneakers-api";
+import { sneakersFilterApi } from "@/features/sneakers-filter";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({

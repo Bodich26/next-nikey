@@ -1,9 +1,6 @@
 import { CloseIcon } from "flowbite-react";
 
-type Props = {
-  sneakerId: string;
-};
-export const ButtonRemoveOrder = ({ sneakerId }: Props) => {
+export const ButtonRemoveOrder = () => {
   //   const { removeSneakerFromFavorites } = useRemoveFavorites();
   return (
     <CloseIcon

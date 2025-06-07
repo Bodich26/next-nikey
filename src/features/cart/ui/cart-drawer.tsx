@@ -14,6 +14,7 @@ import {
   useDrawerState,
 } from "@/shared";
 import { useGetCart } from "../model/use-get-cart";
+import { ButtonCreateOrder } from "./button-create-order";
 
 export const CartDrawer = () => {
   const { cartItems, totalAmount, isLoading, isError } = useGetCart();
@@ -80,13 +81,17 @@ export const CartDrawer = () => {
             Totals: <PriceFormat price={totalAmount} />
           </strong>
 
-          <Button
-            className="mt-2 uppercase w-full cursor-pointer transition-colors duration-300 h-[36px]"
-            size="lg"
-            onClick={handleClose}
-          >
-            Close Cart
-          </Button>
+          {cartItems.length > 0 ? (
+            <ButtonCreateOrder />
+          ) : (
+            <Button
+              className="mt-2 uppercase w-full cursor-pointer transition-colors duration-300 h-[36px]"
+              size="lg"
+              onClick={handleClose}
+            >
+              Close Cart
+            </Button>
+          )}
         </div>
       </Drawer>
     </>

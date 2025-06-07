@@ -25,11 +25,3 @@ export {
   TariffsDeliveryOrder,
   SelectCouponOrder,
 } from "./orders";
-
-//--Get store
-export { favoritesApi, useGetFavoritesQuery } from "./favorites";
-export { cartApi, useGetCartQuery } from "./cart";
-export {
-  sneakersFilterApi,
-  useGetSneakersFilterQuery,
-} from "./sneakers-filter";

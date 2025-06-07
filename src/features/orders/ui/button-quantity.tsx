@@ -7,26 +7,12 @@ type ButtonQuantityProps = {
   quantity: number;
 };
 
-export const ButtonQuantity = ({
-  productId,
-  quantity,
-}: ButtonQuantityProps) => {
-  const handleChange = async (newQuantity: number) => {
-    if (quantity < 1) return;
-
-    // const { success, error } = await toggleQuantity(productId, newQuantity);
-  };
+export const ButtonQuantity = ({ quantity }: ButtonQuantityProps) => {
   return (
     <div className="flex items-center gap-[6px] relative">
-      <CirclePlus
-        className="hover-effect-icon"
-        onClick={() => handleChange(quantity + 1)}
-      />
+      <CirclePlus className="hover-effect-icon" />
       <span className="text-lg font-bold">{quantity}</span>
-      <CircleMinus
-        className="hover-effect-icon"
-        onClick={() => handleChange(quantity - 1)}
-      />
+      <CircleMinus className="hover-effect-icon" />
     </div>
   );
 };
