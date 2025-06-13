@@ -2,8 +2,14 @@ import { ButtonQuantity, ButtonRemoveOrder } from "@/features";
 import { SneakersPrice } from "@/shared";
 import Link from "next/link";
 import Image from "next/image";
+import { DraftOrderItemWithDetails } from "@/features/orders/model/type-orders";
 
-export const SneakersOrderItem = () => {
+export const SneakersOrderItem = ({
+  sneakers,
+}: {
+  sneakers: DraftOrderItemWithDetails;
+}) => {
+  const { sneaker, colorVariant, size } = sneakers;
   return (
     <div className="w-full relative rounded-lg border border-indigo-300 p-4 flex gap-4 max-lg:flex-col">
       <ButtonRemoveOrder />
@@ -17,7 +23,7 @@ export const SneakersOrderItem = () => {
       </div>
       <div className="flex flex-col flex-wrap gap-2 w-full text-indigo-900 text-sm sm:text-base">
         <div className="flex justify-between">
-          <span className="font-semibold">Brand:</span>
+          <span className="font-semibold">{sneaker.brand}</span>
           <span className="uppercase font-bold">Nike</span>
         </div>
 
@@ -28,18 +34,18 @@ export const SneakersOrderItem = () => {
             href="/sneakers/nike-lebron-xxii"
             passHref
           >
-            Air Max 90
+            {sneaker.model}
           </Link>
         </div>
 
         <div className="flex justify-between">
           <span className="font-semibold">Size:</span>
-          <span className="font-bold">43</span>
+          <span className="font-bold">{size.value}</span>
         </div>
 
         <div className="flex justify-between">
           <span className="font-semibold">Color:</span>
-          <span className="font-bold">Blue</span>
+          <span className="font-bold">{colorVariant.color}</span>
         </div>
 
         <div className="flex justify-between items-center">
@@ -49,7 +55,11 @@ export const SneakersOrderItem = () => {
 
         <div className="flex justify-between items-center">
           <span className="font-semibold">Price:</span>
-          <SneakersPrice price={100} discount={1} variant="default" />
+          <SneakersPrice
+            price={colorVariant.price}
+            discount={colorVariant.discount}
+            variant="default"
+          />
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ import {
   useDrawerState,
 } from "@/shared";
 import { useGetCart } from "../model/use-get-cart";
-import { ButtonCreateOrder } from "./button-create-order";
+import { ButtonCreateOrder } from "@/features";
 
 export const CartDrawer = () => {
   const { cartItems, totalAmount, isLoading, isError } = useGetCart();

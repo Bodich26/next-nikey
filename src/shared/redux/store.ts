@@ -1,5 +1,6 @@
 import { cartApi } from "@/features/cart";
 import { favoritesApi } from "@/features/favorites";
+import { ordersApi } from "@/features/orders";
 import { searchSneakersApi } from "@/features/search/api/search-sneakers-api";
 import { sneakersFilterApi } from "@/features/sneakers-filter";
 import { configureStore } from "@reduxjs/toolkit";
@@ -10,13 +11,15 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     [searchSneakersApi.reducerPath]: searchSneakersApi.reducer,
     [sneakersFilterApi.reducerPath]: sneakersFilterApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       favoritesApi.middleware,
       cartApi.middleware,
       searchSneakersApi.middleware,
-      sneakersFilterApi.middleware
+      sneakersFilterApi.middleware,
+      ordersApi.middleware
     ),
 });
 

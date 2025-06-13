@@ -11,4 +11,5 @@ export {
   extendGuestSession,
   getSessionUser,
   migrateGuestDataToUser,
+  generateOrderId,
 } from "./utils";

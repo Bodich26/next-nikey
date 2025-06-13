@@ -1,8 +1,14 @@
-"use client";
 import { PlaceOrderForm } from "@/processes";
 import { Container, HeroSectionInfo, SectionTitles } from "@/shared";
 
-export default function Orders() {
+type SneakerSlug = {
+  params: Promise<{
+    draftOrderId: string;
+  }>;
+};
+
+export default async function Orders({ params }: SneakerSlug) {
+  const { draftOrderId } = await params;
   return (
     <>
       <HeroSectionInfo
@@ -15,7 +21,7 @@ export default function Orders() {
       <section className="mt-20 margins-xs">
         <Container>
           <SectionTitles title={"My order"} as={"h3"} align={"center"} />
-          <PlaceOrderForm />
+          <PlaceOrderForm draftOrderId={draftOrderId} />
         </Container>
       </section>
     </>

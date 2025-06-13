@@ -27,4 +27,15 @@ export async function migrateGuestDataToUser(userId: string, token: string) {
       token: null, // отвязываем от токена
     },
   });
+
+  await prisma.draftOrder.updateMany({
+    where: {
+      userId: null,
+      token,
+    },
+    data: {
+      userId,
+      token: null, // отвязываем от токена
+    },
+  });
 }
