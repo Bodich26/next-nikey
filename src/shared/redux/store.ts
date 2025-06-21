@@ -1,6 +1,6 @@
 import { cartApi } from "@/features/cart";
 import { favoritesApi } from "@/features/favorites";
-import { ordersApi } from "@/features/orders";
+import { ordersApi } from "@/features/orders/api";
 import { searchSneakersApi } from "@/features/search/api/search-sneakers-api";
 import { sneakersFilterApi } from "@/features/sneakers-filter";
 import { configureStore } from "@reduxjs/toolkit";

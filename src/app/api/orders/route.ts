@@ -33,6 +33,25 @@ export async function POST() {
       return NextResponse.json({ error: "Cart is empty", success: false });
     }
 
+    // const orderAmount = userCart.cartItems.reduce((sum, item) => {
+    //   return sum + item.colorVariant.finalPrice * item.quantity;
+    // }, 0);
+
+    const orderAmount = userCart.cartItems.reduce((sum, item) => {
+      const price = item.colorVariant.price;
+      const discount = item.colorVariant.discount || 0;
+      const priceWithDiscount = price * (1 - discount / 100);
+      return sum + priceWithDiscount * item.quantity;
+    }, 0);
+
+    const draftItems = userCart.cartItems.map((item) => ({
+      sneakerId: item.sneakerId,
+      colorVariantId: item.colorVariantId,
+      sizeId: item.sizeId,
+      quantity: item.quantity,
+      price: item.colorVariant.finalPrice,
+    }));
+
     const draftOrder = await prisma.draftOrder.create({
       data: {
         userId: user ? user.id : null,
@@ -46,16 +65,10 @@ export async function POST() {
         paymentMethod: "UPON_RECEIPT",
         shippingMethod: "STANDARD",
         shippingCost: 0,
-        orderAmount: userCart.totalAmount,
+        orderAmount,
         expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
         draftItems: {
-          create: userCart.cartItems.map((item) => ({
-            sneakerId: item.sneakerId,
-            colorVariantId: item.colorVariantId,
-            sizeId: item.sizeId,
-            quantity: item.quantity,
-            price: item.colorVariant.price,
-          })),
+          create: draftItems,
         },
       },
     });

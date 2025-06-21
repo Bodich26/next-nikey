@@ -30,9 +30,31 @@ type DraftOrderIdApiRes = {
 
 type DraftOrderItemsList = DraftOrderItemWithDetails[];
 
+//-------------
+
+type CreateOrderRes = {
+  success?: boolean;
+  error?: string;
+  message?: string;
+};
+
+type CreateOrderReq = {
+  name: string;
+  phone: string;
+  email: string;
+  deliveryAddress: string;
+  paymentMethod: string;
+  shippingMethod: string;
+  shippingCost: number;
+  promoCode?: string | undefined;
+  orderAmount: number;
+};
+
 export type {
   DraftOrderItemWithDetails,
   DraftOrderApiRes,
   DraftOrderIdApiRes,
   DraftOrderItemsList,
+  CreateOrderRes,
+  CreateOrderReq,
 };

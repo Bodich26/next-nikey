@@ -7,3 +7,4 @@ export { extendGuestSession } from "./extend-guest-session";
 export { getSessionUser } from "./get-session-user";
 export { migrateGuestDataToUser } from "./migrate-guest-data-to-user";
 export { generateOrderId } from "./generate-order-id";
+export { getDiscountedPrice } from "./get-discount-price";

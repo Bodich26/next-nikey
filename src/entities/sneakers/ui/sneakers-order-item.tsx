@@ -15,8 +15,11 @@ export const SneakersOrderItem = ({
       <ButtonRemoveOrder />
       <div className="relative w-full min-w-[20%] h-[150px] ">
         <Image
-          src="https://ik.imagekit.io/pfbn9k04m/AirMax90-1.png?updatedAt=1744832779584"
-          alt="model"
+          src={
+            colorVariant.mainImage ??
+            "https://ik.imagekit.io/pfbn9k04m/no-sneaker-main.png?updatedAt=1745404988293"
+          }
+          alt={sneaker.model}
           className="object-cover"
           fill
         />

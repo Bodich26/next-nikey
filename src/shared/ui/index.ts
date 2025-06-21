@@ -15,3 +15,4 @@ export { PaginationControl } from "./pagination-control";
 export { HeroSectionInfo } from "./hero-section-info";
 export { CheckboxGroup } from "./checkbox-group";
 export { SkeletonSneakersOrderItem } from "./skeleton-sneakers-order-item";
+export { RadioGroup } from "./radio-group";

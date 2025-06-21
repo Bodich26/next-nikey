@@ -75,17 +75,17 @@ export const SneakersCartItem = ({ sneaker }: Props) => {
             <div className="p-3 flex-grow flex flex-col justify-between">
               <div className=" text-base font-light leading-normal text-indigo-900">
                 <ul>
-                  <li className="flex items-center gap-1">
+                  <li className="flex flex-wrap items-center gap-1">
                     <strong>Color: </strong>
                     <span>{sneaker.colorVariant.color}</span>
                   </li>
-                  <li className="flex items-center gap-1">
+                  <li className="flex flex-wrap items-center gap-1">
                     <strong>Size: </strong>
                     <ul className="flex items-center">
                       <b>{sneaker.size.value.toString()}</b>
                     </ul>
                   </li>
-                  <li className="flex items-center gap-1">
+                  <li className="flex flex-wrap items-center gap-1">
                     <strong>Quantity: </strong>
                     <span>{sneaker.colorVariant.quantity}</span>
                   </li>

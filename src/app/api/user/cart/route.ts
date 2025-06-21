@@ -39,10 +39,7 @@ export async function GET() {
     }
 
     const totalAmount = userCart.cartItems.reduce((sum, item) => {
-      const price = item.colorVariant.price;
-      const discount = item.colorVariant.discount || 0;
-      const priceWithDiscount = price * (1 - discount / 100);
-      return sum + priceWithDiscount * item.quantity;
+      return sum + item.colorVariant.finalPrice * item.quantity;
     }, 0);
 
     return NextResponse.json({

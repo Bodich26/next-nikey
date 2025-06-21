@@ -2,12 +2,12 @@ import { useGetDraftOrderQuery } from "../api/orders-api";
 
 export const useGetDraftOrder = (draftOrderId: string) => {
   const {
-    data: apiResponse, // переименовываем data в apiResponse для ясности
+    data: apiResponse,
     isLoading,
     error,
     isError,
   } = useGetDraftOrderQuery(draftOrderId, {
-    skip: !draftOrderId, // пропускаем запрос если ID отсутствует
+    skip: !draftOrderId,
   });
 
   return {

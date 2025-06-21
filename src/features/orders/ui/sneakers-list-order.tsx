@@ -1,3 +1,5 @@
+"use client";
+
 import { SneakersOrderItem } from "@/entities";
 import { DraftOrderItemsList } from "../model/type-orders";
 import { ShowErrors } from "@/shared";

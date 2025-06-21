@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { DraftOrderIdApiRes, DraftOrderApiRes } from "../model/type-orders";
+import {
+  DraftOrderIdApiRes,
+  DraftOrderApiRes,
+  CreateOrderRes,
+  CreateOrderReq,
+} from "../model/type-orders";
 
 export const ordersApi = createApi({
   reducerPath: "ordersApi",
@@ -19,7 +24,18 @@ export const ordersApi = createApi({
       }),
       invalidatesTags: ["Orders"],
     }),
+    createOrder: builder.mutation<CreateOrderRes, CreateOrderReq>({
+      query: (orderData) => ({
+        url: "/orders/create",
+        method: "POST",
+        body: orderData,
+      }),
+    }),
   }),
 });
 
-export const { useGetDraftOrderQuery, useCreateDraftOrderMutation } = ordersApi;
+export const {
+  useGetDraftOrderQuery,
+  useCreateDraftOrderMutation,
+  useCreateOrderMutation,
+} = ordersApi;

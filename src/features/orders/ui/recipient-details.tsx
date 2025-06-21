@@ -1,8 +1,16 @@
+"use client";
+
 import { Label, TextInput } from "flowbite-react";
 import { Mail, Phone, User } from "lucide-react";
 import { ButtonConfirmOrder } from "./button-confirm-order";
+import { useFormContext } from "react-hook-form";
 
 export const RecipientDetails = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
   return (
     <>
       <div className="flex flex-col gap-4 border border-indigo-300 p-4 bg-transparent rounded-lg text-indigo-500">
@@ -11,11 +19,15 @@ export const RecipientDetails = () => {
         </h4>
         <div>
           <div className="mb-2">
-            <Label htmlFor="username" className="!text-indigo-700">
+            <Label
+              htmlFor="username"
+              className={errors.name ? "!text-red-500" : "!text-indigo-700"}
+            >
               Your name
             </Label>
           </div>
           <TextInput
+            {...register("name")}
             type="text"
             id="username"
             sizing="sm"
@@ -35,18 +47,27 @@ export const RecipientDetails = () => {
               },
             }}
           />
+          {errors.name && (
+            <p className="text-xs font-normal text-red-500 mt-1">
+              {errors.name?.message?.toString()}
+            </p>
+          )}
         </div>
         <div>
           <div className="mb-2">
-            <Label htmlFor="tel" className="!text-indigo-700">
+            <Label
+              htmlFor="tel"
+              className={errors.phone ? "!text-red-500" : "!text-indigo-700"}
+            >
               Phone number
             </Label>
           </div>
           <TextInput
+            {...register("phone")}
             type="tel"
             id="tel"
             sizing="sm"
-            placeholder="123 4567 890"
+            placeholder="+3 99 123 45 67"
             required
             icon={Phone}
             theme={{
@@ -62,14 +83,23 @@ export const RecipientDetails = () => {
               },
             }}
           />
+          {errors.phone && (
+            <p className="text-xs font-normal text-red-500 mt-1">
+              {errors.phone?.message?.toString()}
+            </p>
+          )}
         </div>
         <div>
           <div className="mb-2">
-            <Label htmlFor="email" className="!text-indigo-700">
+            <Label
+              htmlFor="email"
+              className={errors.email ? "!text-red-500" : "!text-indigo-700"}
+            >
               Email address
             </Label>
           </div>
           <TextInput
+            {...register("email")}
             type="email"
             id="email"
             sizing="sm"
@@ -89,6 +119,11 @@ export const RecipientDetails = () => {
               },
             }}
           />
+          {errors.email && (
+            <p className="text-xs font-normal text-red-500 mt-1">
+              {errors.email?.message?.toString()}
+            </p>
+          )}
         </div>
       </div>
       <ButtonConfirmOrder />
