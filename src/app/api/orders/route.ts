@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
 import { getSessionUser, generateOrderId } from "@/shared";
+import { calcDiscountPriceServer, getDiscountedPrice } from "@/shared/utils";
 
 export async function POST() {
   try {
@@ -33,23 +34,21 @@ export async function POST() {
       return NextResponse.json({ error: "Cart is empty", success: false });
     }
 
-    // const orderAmount = userCart.cartItems.reduce((sum, item) => {
-    //   return sum + item.colorVariant.finalPrice * item.quantity;
-    // }, 0);
-
-    const orderAmount = userCart.cartItems.reduce((sum, item) => {
-      const price = item.colorVariant.price;
-      const discount = item.colorVariant.discount || 0;
-      const priceWithDiscount = price * (1 - discount / 100);
-      return sum + priceWithDiscount * item.quantity;
-    }, 0);
+    const orderAmount = calcDiscountPriceServer(userCart.cartItems, (item) => ({
+      price: item.colorVariant.price,
+      discount: item.colorVariant.discount,
+      quantity: item.colorVariant.quantity,
+    }));
 
     const draftItems = userCart.cartItems.map((item) => ({
       sneakerId: item.sneakerId,
       colorVariantId: item.colorVariantId,
       sizeId: item.sizeId,
       quantity: item.quantity,
-      price: item.colorVariant.finalPrice,
+      price: getDiscountedPrice(
+        item.colorVariant.price,
+        item.colorVariant.discount
+      ),
     }));
 
     const draftOrder = await prisma.draftOrder.create({

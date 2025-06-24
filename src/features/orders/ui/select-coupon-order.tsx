@@ -5,7 +5,11 @@ import { useUser } from "@clerk/nextjs";
 import { Select } from "flowbite-react";
 import { Tag } from "lucide-react";
 
-export const SelectCouponOrder = () => {
+type Props = {
+  totalPrice: number;
+};
+
+export const SelectCouponOrder = ({ totalPrice }: Props) => {
   const { user } = useUser();
   const isGuest = !user;
 
@@ -48,7 +52,7 @@ export const SelectCouponOrder = () => {
         <p className="font-medium text-lg text-indigo-900 capitalize">
           Order amount:
         </p>
-        <SneakersPrice price={100} variant={"main"} discount={0} />
+        <SneakersPrice price={totalPrice} variant={"main"} discount={0} />
       </div>
     </div>
   );

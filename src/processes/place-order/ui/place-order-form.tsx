@@ -87,7 +87,7 @@ export const PlaceOrderForm = ({ draftOrderId }: Props) => {
         <div className="flex flex-[1] flex-col gap-8 max-sm:gap-5">
           <PaymentMethodOrder />
           <TariffsDeliveryOrder />
-          <SelectCouponOrder />
+          <SelectCouponOrder totalPrice={draftOrder.orderAmount} />
         </div>
       </form>
     </FormProvider>

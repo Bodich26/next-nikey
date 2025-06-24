@@ -4,6 +4,7 @@ import { OrdersSchema } from "@/features/orders";
 import { generateOrderId, getSessionUser } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
+import { calcDiscountPriceServer, getDiscountedPrice } from "@/shared/utils";
 
 export async function POST(req: NextRequest) {
   const { user, token } = await getSessionUser();
@@ -51,17 +52,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Items is not found", success: false });
     }
 
-    // const serverAmount = userDraftOrder.draftItems.reduce((sum, item) => {
-    //   return sum + item.colorVariant.finalPrice * item.quantity;
-    // }, 0);
-
-    const serverAmount = Math.floor(
-      userDraftOrder.draftItems.reduce((sum, item) => {
-        const price = item.colorVariant.price;
-        const discount = item.colorVariant.discount || 0;
-        const priceWithDiscount = price * (1 - discount / 100);
-        return sum + priceWithDiscount * item.quantity;
-      }, 0)
+    const serverAmount = calcDiscountPriceServer(
+      userDraftOrder.draftItems,
+      (item) => ({
+        price: item.colorVariant.price,
+        discount: item.colorVariant.discount,
+        quantity: item.colorVariant.quantity,
+      })
     );
 
     const orderItems = userDraftOrder.draftItems.map((item) => ({
@@ -69,7 +66,10 @@ export async function POST(req: NextRequest) {
       colorVariantId: item.colorVariantId,
       sizeId: item.sizeId,
       quantity: item.quantity,
-      price: item.colorVariant.finalPrice,
+      price: getDiscountedPrice(
+        item.colorVariant.price,
+        item.colorVariant.discount
+      ),
     }));
 
     const createOrder = await prisma.order.create({

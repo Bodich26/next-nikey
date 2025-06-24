@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/../backend/prisma/prisma-client";
 import { getSessionUser } from "@/shared";
+import { calcDiscountPriceServer } from "@/shared/utils";
 
 export async function GET() {
   try {
@@ -38,9 +39,11 @@ export async function GET() {
       });
     }
 
-    const totalAmount = userCart.cartItems.reduce((sum, item) => {
-      return sum + item.colorVariant.finalPrice * item.quantity;
-    }, 0);
+    const totalAmount = calcDiscountPriceServer(userCart.cartItems, (item) => ({
+      price: item.colorVariant.price,
+      discount: item.colorVariant.discount,
+      quantity: item.quantity,
+    }));
 
     return NextResponse.json({
       cartItems: userCart.cartItems,
