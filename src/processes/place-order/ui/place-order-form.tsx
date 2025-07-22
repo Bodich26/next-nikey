@@ -14,8 +14,8 @@ import {
   OrderFormSkeleton,
   OrdersSchema,
   OrdersSchemaData,
-  useCreateOrder,
   useGetDraftOrder,
+  useOrdersContext,
 } from "@/features/orders";
 import { ShowErrors } from "@/shared";
 
@@ -24,8 +24,8 @@ type Props = {
 };
 
 export const PlaceOrderForm = ({ draftOrderId }: Props) => {
-  const { handleOrder } = useCreateOrder();
-  const { draftOrder, isError, isLoading, error } =
+  const { handleOrder } = useOrdersContext();
+  const { draftOrder, isError, loadingDraftOrder, error } =
     useGetDraftOrder(draftOrderId);
 
   const orderForm = useForm<OrdersSchemaData>({
@@ -51,7 +51,7 @@ export const PlaceOrderForm = ({ draftOrderId }: Props) => {
     }
   }, [draftOrder, setValue]);
 
-  if (isLoading) {
+  if (loadingDraftOrder) {
     return <OrderFormSkeleton />;
   }
 

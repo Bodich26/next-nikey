@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { StoreProvider } from "@/shared";
+import { HydrationWrapper, StoreProvider } from "@/shared";
 
 const inter = Inter({
   variable: "--font-inter-sans",
@@ -23,7 +23,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter} antialiased`}>
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <HydrationWrapper>{children}</HydrationWrapper>
+          </StoreProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -1,3 +1,4 @@
+import { OrdersProvider } from "@/features/orders";
 import { PlaceOrderForm } from "@/processes";
 import { Container, HeroSectionInfo, SectionTitles } from "@/shared";
 
@@ -10,7 +11,7 @@ type SneakerSlug = {
 export default async function Orders({ params }: SneakerSlug) {
   const { draftOrderId } = await params;
   return (
-    <>
+    <OrdersProvider>
       <HeroSectionInfo
         title={"Secure Checkout – Fast & Easy Delivery"}
         description={
@@ -24,6 +25,6 @@ export default async function Orders({ params }: SneakerSlug) {
           <PlaceOrderForm draftOrderId={draftOrderId} />
         </Container>
       </section>
-    </>
+    </OrdersProvider>
   );
 }

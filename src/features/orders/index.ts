@@ -13,3 +13,5 @@ export { useCreateOrder } from "./model/use-create-order";
 
 export { useGetDraftOrder } from "./model/use-get-draft-order";
 export { type OrdersSchemaData, OrdersSchema } from "./model/orders-schema";
+export { useOrdersContext } from "./model/use-orders-context";
+export { OrdersProvider } from "./ui/orders-provider";

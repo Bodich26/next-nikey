@@ -12,7 +12,7 @@ export const useGetDraftOrder = (draftOrderId: string) => {
 
   return {
     draftOrder: apiResponse?.success ? apiResponse.draftOrder : null,
-    isLoading,
+    loadingDraftOrder: isLoading,
     isError: isError || !apiResponse?.success,
     error: error?.toString() || (apiResponse?.error ?? null),
   };
