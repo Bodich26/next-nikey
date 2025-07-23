@@ -2,10 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useCreateDraftOrderMutation } from "../api/orders-api";
+import { useUI } from "@/shared";
 
 export const useCreateDraftOrder = () => {
   const router = useRouter();
   const [createDraftOrder, { isLoading }] = useCreateDraftOrderMutation();
+  const { closeCart } = useUI();
 
   const handleCreateDraftOrder = async (): Promise<{
     success: boolean;
@@ -15,6 +17,7 @@ export const useCreateDraftOrder = () => {
       const res = await createDraftOrder().unwrap();
 
       if (res.draftOrderId) {
+        closeCart();
         router.push(`/orders/${res.draftOrderId}`);
       }
 
