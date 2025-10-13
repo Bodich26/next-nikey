@@ -1,4 +1,3 @@
-export { CollectionSlider, getActiveCollection } from "./collection-slider";
 export { PromoBanner } from "./promo-banner";
 export { BlogItem, getBlogs } from "./blog";
 export {

@@ -1,4 +1,4 @@
-import { CollectionResponse } from "../model/type-collection";
+import { CollectionResponse } from "../model/main-collection-type";
 
 export async function getActiveCollection(): Promise<CollectionResponse> {
   try {
