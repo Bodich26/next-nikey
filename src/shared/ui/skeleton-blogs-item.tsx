@@ -2,9 +2,9 @@ export const SkeletonBlogsItem = () => {
   return (
     <div
       role="status"
-      className="relative rounded-lg border border-indigo-50 shadow-sm animate-pulse h-[330px] flex flex-col"
+      className="relative rounded-lg border border-indigo-50 shadow-sm animate-pulse h-[418px] flex flex-col"
     >
-      <div className="relative w-full h-[200px] overflow-hidden rounded-t-lg bg-indigo-300 flex items-center justify-center">
+      <div className="relative w-full h-[240px] overflow-hidden rounded-t-lg bg-indigo-300 flex items-center justify-center">
         <svg
           className="w-10 h-10 text-indigo-50"
           aria-hidden="true"
@@ -19,7 +19,8 @@ export const SkeletonBlogsItem = () => {
         <div className="flex justify-between items-center">
           <div className="h-7 w-[300px] bg-indigo-300 rounded-md" />
         </div>
-        <div className="h-7 w-[200px] bg-indigo-300 rounded-md mt-4" />
+        <div className="h-7 w-full bg-indigo-300 rounded-md mt-4" />
+        <div className="h-7 w-full bg-indigo-300 rounded-md mt-4" />
         <div className="flex justify-between items-center mt-4">
           <div className="h-4 w-15 bg-indigo-300 rounded-full" />
           <div className="h-4 w-10 bg-indigo-300 rounded-full" />
