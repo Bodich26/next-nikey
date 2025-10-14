@@ -8,7 +8,7 @@ export const PopularSneakers = async () => {
   return (
     <section className="mt-20 margins-xs">
       <Container>
-        <SectionTitles title="Popular sneakers" as="h2" align="center" />
+        <SectionTitles title="Popular sneakers" as="h3" align="center" />
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,_minmax(220px,_1fr))] mt-8">
           {popularSneakers.map((item) => (
             <SneakersCatalogItem key={item.id} sneaker={item} />

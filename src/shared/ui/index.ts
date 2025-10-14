@@ -18,4 +18,4 @@ export { SkeletonSneakersOrderItem } from "./skeleton-sneakers-order-item";
 export { RadioGroup } from "./radio-group";
 export { HydrationWrapper } from "./hydration-wrapper";
 export { UIContext, UIProvider } from "./ui-provider";
-export { SkeletonPopularSneakers } from "./skeleton-popular-sneakers";
+export { SkeletonBlogsItem } from "./skeleton-blogs-item";
