@@ -16,7 +16,7 @@ type SneakerSlideProps = {
   showError?: string;
 };
 
-export const SliderBanners = ({ slide, showError }: SneakerSlideProps) => {
+export const BannerSliderSlide = ({ slide, showError }: SneakerSlideProps) => {
   if (!slide || slide.length === 0) {
     return showError ? <ShowErrors error={showError} type={"full"} /> : null;
   }

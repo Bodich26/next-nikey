@@ -46,7 +46,7 @@ export const SearchDrawer = () => {
           type="text"
           sizing="sm"
           value={searchSneakers}
-          className="w-[500px] max-sm:w-[300px]"
+          className="w-[500px] max-sm:w-[300px] mb-3"
           onChange={(e) => setSearchSneakers(e.target.value)}
         />
         <DrawerItems className="!overflow-y-auto w-[500px] max-sm:w-[300px] relative">

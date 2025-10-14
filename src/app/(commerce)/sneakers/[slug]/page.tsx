@@ -1,17 +1,16 @@
-import { getSneakersSlider, getSneakersSlug } from "@/entities";
-import {
-  SneakersVariantSelection,
-  getSneakersReviews,
-  ReviewSlider,
-} from "@/features";
+import { getSneakersSlug } from "@/entities";
+import { SneakersVariantSelection } from "@/features";
 
 import {
   Container,
   SectionTitles,
   GenderCorrect,
   ShowErrors,
-  SliderBanners,
+  SkeletonBannerSlider,
 } from "@/shared";
+import { BannerSlider } from "@/widgets/banner-slider";
+import { ReviewSkeleton, ReviewSneaker } from "@/widgets/review-sneaker";
+import { Suspense } from "react";
 
 type SneakerSlug = {
   params: Promise<{
@@ -27,13 +26,6 @@ export default async function Sneaker({ params }: SneakerSlug) {
     error: sneakersSlugError,
   } = await getSneakersSlug(slug);
 
-  const { sneakerSlider, error: sneakersSliderError } = await getSneakersSlider(
-    slug
-  );
-
-  const { sneakerReviews, error: sneakerReviewsError } =
-    await getSneakersReviews(slug);
-
   if (!sneakerBySlug || sneakersSlugError) {
     return (
       <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
@@ -48,16 +40,11 @@ export default async function Sneaker({ params }: SneakerSlug) {
 
   return (
     <>
-      <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
-        <Container>
-          <div className="pt-20 pb-[100px] sm:pb-[138px]">
-            <SliderBanners
-              slide={sneakerSlider}
-              showError={sneakersSliderError}
-            />
-          </div>
-        </Container>
-      </section>
+      {/* Banner Slider */}
+      <Suspense fallback={<SkeletonBannerSlider />}>
+        <BannerSlider slug={slug} variant="sneakers" />
+      </Suspense>
+
       <section className="mt-20 margins-xs">
         <Container>
           <SectionTitles
@@ -73,17 +60,9 @@ export default async function Sneaker({ params }: SneakerSlug) {
           <SneakersVariantSelection sneaker={sneakerBySlug} rating={rating} />
 
           {/* Отзывы */}
-          {sneakerReviews.length > 0 ? (
-            <ReviewSlider
-              review={sneakerReviews}
-              showError={sneakerReviewsError}
-            />
-          ) : (
-            <ShowErrors
-              type="border"
-              error="There are no reviews for these sneakers yet."
-            />
-          )}
+          <Suspense fallback={<ReviewSkeleton />}>
+            <ReviewSneaker slug={slug} />
+          </Suspense>
         </Container>
       </section>
     </>

@@ -7,8 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { ShowErrors } from "@/shared";
-import { ReviewItem } from "./review-item";
-import { sneakerReview } from "../model/type-reviews";
+import { ReviewItem, sneakerReview } from "@/entities/reviews";
 
 type sneakerReviewProps = {
   review: sneakerReview[];

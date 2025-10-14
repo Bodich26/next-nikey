@@ -8,9 +8,8 @@ export {
 export { CartDrawer, ButtonAddToCart, ButtonRemoveCart } from "./cart";
 export { SneakersVariantSelection } from "./sneakers";
 export { SelectSize } from "./sizes";
-export { getSneakersReviews, ReviewSlider } from "./reviews";
 export { SearchDrawer } from "./search";
-export { getCatalogSlider } from "./catalog-slider";
+export { getCatalogSlider } from "../entities/catalog-slider";
 
 export { SneakersFilterList } from "./sneakers-filter";
 
