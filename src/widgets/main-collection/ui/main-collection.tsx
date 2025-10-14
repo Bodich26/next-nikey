@@ -10,7 +10,9 @@ export const MainCollection = async () => {
       <Container>
         <div className="pt-20 pb-[100px] sm:pb-[175px]">
           {collectionError ? (
-            <ShowErrors error={collectionError} type={"full"} />
+            <div className="mt-20">
+              <ShowErrors error={collectionError} type={"full"} />
+            </div>
           ) : (
             <MainCollectionView collection={collectionData[0]} />
           )}

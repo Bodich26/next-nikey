@@ -8,7 +8,6 @@ export { ShowNotify } from "./show-notify";
 export { GenderCorrect } from "./gender-correct";
 export { SneakersPrice } from "./sneakers-price";
 export { StarsRating } from "./stars-rating";
-export { BannerSliderSlide } from "./banner-slider-slide";
 export { CircleQuantity } from "./circle-quantity";
 export { SkeletonSneakersItem } from "./skeleton-sneakers-item";
 export { PaginationControl } from "./pagination-control";

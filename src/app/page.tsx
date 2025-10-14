@@ -18,6 +18,7 @@ export default async function Home() {
       <Header />
       <main className="flex-1">
         {/* Main Collection */}
+
         <Suspense fallback={<MainCollectionSkeleton />}>
           <MainCollection />
         </Suspense>
