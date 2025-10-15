@@ -1,4 +1,4 @@
-import { ShowErrors } from "@/shared";
+import { Container, ShowErrors } from "@/shared";
 import { ReviewSlider } from "./review-slider";
 import { getSneakersReviews } from "@/entities/reviews";
 
@@ -10,7 +10,7 @@ export const ReviewSneaker = async ({ slug }: Props) => {
     await getSneakersReviews(slug);
 
   return (
-    <>
+    <Container>
       {sneakerReviews.length > 0 ? (
         <ReviewSlider review={sneakerReviews} showError={sneakerReviewsError} />
       ) : (
@@ -19,6 +19,6 @@ export const ReviewSneaker = async ({ slug }: Props) => {
           error="There are no reviews for these sneakers yet."
         />
       )}
-    </>
+    </Container>
   );
 };

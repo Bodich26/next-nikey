@@ -1,15 +1,10 @@
-import { getSneakersSlug } from "@/entities";
-import { SneakersVariantSelection } from "@/features";
-
-import {
-  Container,
-  SectionTitles,
-  GenderCorrect,
-  ShowErrors,
-  SkeletonBannerSlider,
-} from "@/shared";
+import { SkeletonBannerSlider } from "@/shared";
 import { BannerSlider } from "@/widgets/banner-slider";
 import { ReviewSkeleton, ReviewSneaker } from "@/widgets/review-sneaker";
+import {
+  SkeletonSneakersSection,
+  SneakerSection,
+} from "@/widgets/sneakers-section";
 import { Suspense } from "react";
 
 type SneakerSlug = {
@@ -20,23 +15,6 @@ type SneakerSlug = {
 
 export default async function Sneaker({ params }: SneakerSlug) {
   const { slug } = await params;
-  const {
-    sneakerBySlug,
-    rating,
-    error: sneakersSlugError,
-  } = await getSneakersSlug(slug);
-
-  if (!sneakerBySlug || sneakersSlugError) {
-    return (
-      <section className="bg-[url('/bg-sliders.jpg')] bg-cover bg-center bg-no-repeat">
-        <Container>
-          <div className="p-[299px] flex justify-center items-center">
-            <ShowErrors type="full" error="Упс... товар не найден!" />
-          </div>
-        </Container>
-      </section>
-    );
-  }
 
   return (
     <>
@@ -45,26 +23,13 @@ export default async function Sneaker({ params }: SneakerSlug) {
         <BannerSlider slug={slug} variant="sneakers" />
       </Suspense>
 
-      <section className="mt-20 margins-xs">
-        <Container>
-          <SectionTitles
-            title={
-              <GenderCorrect gender={sneakerBySlug.gender} type="titles" />
-            }
-            types="sneakers"
-            as="h2"
-            align="center"
-          />
+      <Suspense fallback={<SkeletonSneakersSection />}>
+        <SneakerSection slug={slug} />
+      </Suspense>
 
-          {/* Кроссовок */}
-          <SneakersVariantSelection sneaker={sneakerBySlug} rating={rating} />
-
-          {/* Отзывы */}
-          <Suspense fallback={<ReviewSkeleton />}>
-            <ReviewSneaker slug={slug} />
-          </Suspense>
-        </Container>
-      </section>
+      <Suspense fallback={<ReviewSkeleton />}>
+        <ReviewSneaker slug={slug} />
+      </Suspense>
     </>
   );
 }

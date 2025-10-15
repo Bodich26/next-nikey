@@ -15,6 +15,8 @@ export async function getSneakersSlug(
 
     const data: SneakersSlugResponse = await response.json();
 
+    if (!data.sneakerBySlug) throw new Error("Sneaker not found");
+
     return {
       sneakerBySlug: data.sneakerBySlug ?? null,
       rating: data.rating,
