@@ -1,4 +1,4 @@
-import { BlogItem, getBlogs } from "@/features/blog";
+import { BlogItem, getBlogs } from "@/entities/blogs";
 import { Container, SectionTitles, ShowErrors } from "@/shared";
 import { Blog } from "@prisma/client";
 import { ArrowRightIcon } from "flowbite-react";

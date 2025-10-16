@@ -1,4 +1,4 @@
-import { BlogsResponse } from "../model/type-blog";
+import { BlogsResponse } from "../model/type-blogs";
 
 export async function getBlogs(): Promise<BlogsResponse> {
   try {

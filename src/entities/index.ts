@@ -17,3 +17,4 @@ export { UserDropdown } from "./user";
 export { ContactList } from "./contact";
 
 export { MainCollectionSlide } from "./main-collection";
+export { getBlogs, BlogItem } from "./blogs";
