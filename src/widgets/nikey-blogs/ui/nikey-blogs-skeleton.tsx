@@ -15,7 +15,7 @@ export const NikeyBlogsSkeleton = async () => {
             <SkeletonBlogsItem key={index} />
           ))}
         </div>
-        <div className="rounded-md gap-2 mt-4 capitalize bg-indigo-200 w-[150px] h-5 " />
+        <div className="rounded-md gap-2 mt-4 capitalize bg-indigo-200 w-[150px] h-[25px] " />
       </Container>
     </section>
   );
